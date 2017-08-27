@@ -22,7 +22,13 @@
         </activity>
         <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.SignupActivity" />
-        <activity android:name=".Activity.MakeGroupActivity"></activity>
+        <activity android:name=".Activity.MakeGroupActivity" />
+        <activity android:name=".Activity.EventListActivity" />
+        <activity android:name=".Activity.MakeEventActivity" />
+        <activity android:name=".Activity.EventDetailActivity" />
+        <activity android:name=".Activity.MakeEventResultActivity" />
+        <activity android:name=".Activity.AdminEventDetailActivity" />
+        <activity android:name=".Activity.AdminEventDetailMoreActivity"></activity>
     </application>
 
 </manifest>
