@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:background="@color/background"
@@ -44,6 +45,67 @@
             android:layout_width="20dp"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="20dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#50ffffff">
+                <LinearLayout
+                    android:id="@+id/group_blank1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+                    <io.github.dudgns0507.mpay.widget.NBLTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="운영 중인 그룹이 없습니다."/>
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="10dp" />
+                    <ImageView
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:src="@drawable/ic_add_white_48dp"/>
+                </LinearLayout>
+            </RelativeLayout>
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@color/uiBlack"
+            android:padding="20dp">
+            <FrameLayout
+                android:id="@+id/group_blank2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/uiGrey">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="가입/관리가 승인된 그룹이 없습니다.\n그룹 관리자에게 이메일을 알려주세요."
+                    android:textSize="18sp"/>
+            </FrameLayout>
+        </FrameLayout>
+    </LinearLayout>
+=======
+    tools:context="io.github.dudgns0507.mpay.Activity.MainActivity"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -117,4 +179,5 @@
         </ListView>
         <!--bottom은 가입된 그룹 있을 때 떠있는 애 - 기본 gone-->
     </RelativeLayout>
+>>>>>>> 7cac85033d7580291aeecd273cb0bb30f86d3212
 </LinearLayout>
