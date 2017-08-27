@@ -20,14 +20,18 @@ import com.gun0912.tedpermission.TedPermission;
 
 import java.util.ArrayList;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.dudgns0507.mpay.R;
+import io.github.dudgns0507.mpay.models.Common;
+import io.github.dudgns0507.mpay.util.Login;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -39,7 +43,12 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.email_edit) EditText email_edit;
     @BindView(R.id.passwd_edit) EditText passwd_edit;
 
+    @BindString(R.string.baseurl) String baseUrl;
+
     @OnClick(R.id.signup_text) void onSignupClicked() {
+        Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @OnClick(R.id.go_btn_frame) void onSigninClicked() {
@@ -48,11 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         } else if(passwd_edit.getText().toString().replace(" ", "").equals("")) {
             Snackbar.make(getWindow().getDecorView().getRootView(), "비밀번호를 입력해주십시오.", Snackbar.LENGTH_SHORT).show();
         } else {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            finish();
-            login("", "");
+            login(email_edit.getText().toString(), passwd_edit.getText().toString());
         }
     }
 
@@ -64,7 +69,6 @@ public class LoginActivity extends AppCompatActivity {
 
         Glide.with(this).load(R.drawable.logo_white).into(logo);
         Glide.with(this).load(R.drawable.textlogo_white).into(textlogo);
-
 
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
@@ -81,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         TedPermission.with(this)
                 .setPermissionListener(permissionlistener)
                 .setDeniedMessage("권한 허가하시지 않을 경우, 앱의 일부 서비스를 사용 못할 수 있습니다. \n\n[설정] -> [권한]에서 권한을 설정해 주세요.")
-                .setPermissions(Manifest.permission.READ_CONTACTS)
+                .setPermissions(Manifest.permission.INTERNET)
                 .check();
     }
 
@@ -92,55 +96,47 @@ public class LoginActivity extends AppCompatActivity {
 
         asyncDialog.show();
 
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("http://0hoon.xyz")
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//
-//        Login login = retrofit.create(Login.class);
-//
-//        Call<UserData> call = login.login(id, pw);
-//        call.enqueue(new Callback<UserData>() {
-//            @Override
-//            public void onResponse(Call<UserData> call, Response<UserData> response) {
-//                asyncDialog.dismiss();
-//                UserData res = response.body();
-//
-//                if(response.body().getType()) {
-//                    LocalData mData = (LocalData) getApplicationContext();
-//                    mData.setCreate_date(res.getCreate_date());
-//                    mData.setEmail(res.getEmail());
-//                    mData.setId(res.getId());
-//                    mData.setName(res.getName());
-//                    mData.setStudy_time(res.getStudy_time());
-//                    mData.setWordLists(res.getWordLists());
-//
-//                    SharedPreferences sp = getSharedPreferences("dudgns0507.learndoin", MODE_PRIVATE);
-//                    SharedPreferences.Editor edit = sp.edit();
-//
-//                    edit.putString("id", id);
-//                    edit.putString("pw", pw);
-//
-//                    edit.commit();
-//
-//                    Handler handler = new Handler();
-//                    handler.postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                            startActivity(intent);
-//                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-//                        }
-//                    },500);
-//                } else {
-//                    Toast.makeText(LoginActivity.this, "ID 및 PW를 확인해주세요.", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<UserData> call, Throwable t) {
-//                Log.w(TAG, "Login Failed");
-//            }
-//        });
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        Login login = retrofit.create(Login.class);
+
+        Call<Common> call = login.login(id, pw);
+        call.enqueue(new Callback<Common>() {
+            @Override
+            public void onResponse(Call<Common> call, Response<Common> response) {
+                asyncDialog.dismiss();
+                Common res = response.body();
+
+                switch (res.getResult().getState()) {
+                    case "200":
+                        Snackbar.make(getWindow().getDecorView().getRootView(), "로그인이 완료되었습니다.", Snackbar.LENGTH_SHORT).show();
+
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                                finish();
+                            }
+                        }, 500);
+                        break;
+                    case "201":
+                        Snackbar.make(getWindow().getDecorView().getRootView(), "이메일 및 비밀번호를 확인해주세요.", Snackbar.LENGTH_SHORT).show();
+                        break;
+
+                }
+                asyncDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<Common> call, Throwable t) {
+                asyncDialog.dismiss();
+                t.printStackTrace();
+            }
+        });
     }
 }

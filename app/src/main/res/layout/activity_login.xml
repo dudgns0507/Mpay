@@ -39,11 +39,12 @@
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <EditText
+            <io.github.dudgns0507.mpay.widget.NBLEditTextView
                 android:id="@+id/email_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="이메일"
+                android:inputType="textWebEmailAddress"
                 android:backgroundTint="@color/uiBlue"
                 android:singleLine="true"
                 android:textSize="18sp"/>
@@ -52,11 +53,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
 
-            <EditText
+            <io.github.dudgns0507.mpay.widget.NBLEditTextView
                 android:id="@+id/passwd_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="비밀번호"
+                android:inputType="textPassword"
                 android:backgroundTint="@color/uiBlue"
                 android:singleLine="true"
                 android:textSize="18sp"/>
