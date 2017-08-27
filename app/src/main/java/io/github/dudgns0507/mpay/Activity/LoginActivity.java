@@ -28,6 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.dudgns0507.mpay.R;
 import io.github.dudgns0507.mpay.models.Common;
+import io.github.dudgns0507.mpay.models.Data;
 import io.github.dudgns0507.mpay.util.Login;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -124,6 +125,13 @@ public class LoginActivity extends AppCompatActivity {
 
                         edit.putString("email", email_edit.getText().toString());
                         edit.apply();
+
+                        Data data = Data.getInstance();
+                        data.set_id(res.getResult().getUser_info().get_id());
+                        data.setBirth(res.getResult().getUser_info().getBirth());
+                        data.setEmail(res.getResult().getUser_info().getEmail());
+                        data.setName(res.getResult().getUser_info().getName());
+                        data.setPhone(res.getResult().getUser_info().getPhone());
 
                         new Handler().postDelayed(new Runnable() {
                             @Override

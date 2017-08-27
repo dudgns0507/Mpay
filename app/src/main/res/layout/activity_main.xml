@@ -114,7 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
-            android:id="@+id/bottom">
+            android:id="@+id/listview_bottom">
         </ListView>
         <!--bottom은 가입된 그룹 있을 때 떠있는 애 - 기본 gone-->
     </RelativeLayout>
