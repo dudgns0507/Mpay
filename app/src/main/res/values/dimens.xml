@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="uiTitle">30sp</dimen>
+    <dimen name="uiExplanation">10sp</dimen>
+    <dimen name="uiBudget">25sp</dimen>
+
+    <dimen name="dialogTitle">20sp</dimen>
+    <dimen name="dialogContent">16sp</dimen>
+    <dimen name="dialogButton">14sp</dimen>
+    <dimen name="dialogWelcome">17sp</dimen>
+
+    <!--EditText는 아래 있는 거 쓰지 말고 그냥 기본으로 놔두는 게 좋을 것 같긴 함. 편한 걸로 하자-->
+    <dimen name="editTextHint">10sp</dimen>
+    <dimen name="editTextError">14sp</dimen>
+
+    <dimen name="listHuman">16sp</dimen>
+    <dimen name="listGroup">16sp</dimen>
+    <dimen name="listEvent">16sp</dimen>
+
+    <dimen name="tagText">14sp</dimen>
+
+    <dimen name="receiptTitle">30sp</dimen>
+    <dimen name="receiptExplanation">17sp</dimen>
+    <dimen name="receiptInfo">25sp</dimen>
+
+    <dimen name="normal">14sp</dimen>
+</resources>

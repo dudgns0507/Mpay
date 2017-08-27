@@ -4,6 +4,80 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="io.github.dudgns0507.mpay.Activity.MainActivity">
+    tools:context="io.github.dudgns0507.mpay.Activity.MainActivity"
+    android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/background">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/top_none">
+            <!--top_none은 가입된 그룹 없을 때 떠있는 애-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="운영 중인 그룹이 없습니다."
+                android:textSize="@dimen/listGroup"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/textWhite"
+                android:paddingBottom="80dp"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:src="@drawable/ic_add_white_48dp"
+                android:id="@+id/addgroup_none"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="50dp"/>
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/top"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <!--top은 가입된 그룹 있을 때 떠있는 애 - 기본 gone-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_add_white_48dp"
+                android:id="@+id/addgroup"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="10dp"/>
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/listview_top">
+            </ListView>
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/uiBlack">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:text="가입한 그룹이 없습니다.\n그룹 관리자에게 문의하세요."
+            android:textAlignment="center"
+            android:textSize="@dimen/listGroup"
+            android:textColor="@color/textWhite"
+            android:id="@+id/bottom_none"/>
+        <!--bottom_none은 가입된 그룹 없을 때 떠있는 애-->
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:id="@+id/bottom">
+        </ListView>
+        <!--bottom은 가입된 그룹 있을 때 떠있는 애 - 기본 gone-->
+    </RelativeLayout>
 </LinearLayout>
