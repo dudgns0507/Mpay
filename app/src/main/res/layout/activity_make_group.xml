@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="io.github.dudgns0507.mpay.Activity.MakeGroupActivity"
+    android:orientation="vertical"
+    android:padding="16dp">
+    <io.github.dudgns0507.mpay.widget.NBLEditTextView
+        android:id="@+id/group_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="그룹 이름"
+        android:backgroundTint="@color/uiBlue"
+        android:singleLine="true"
+        android:textSize="@dimen/normal"/>
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <io.github.dudgns0507.mpay.widget.NBLEditTextView
+        android:id="@+id/group_budget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="현재 자금(원)"
+        android:inputType="number"
+        android:backgroundTint="@color/uiBlue"
+        android:singleLine="true"
+        android:textSize="@dimen/normal"/>
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:background="@drawable/rectangle_blue">
+
+        <io.github.dudgns0507.mpay.widget.NBLEditTextView
+            android:id="@+id/group_invite_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#00000000"
+            android:hint="초대 메시지"
+            android:textSize="@dimen/normal" />
+    </FrameLayout>
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <io.github.dudgns0507.mpay.widget.NBLEditTextView
+            android:id="@+id/group_account"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:hint="입금 계좌번호 입력(- 없이)"
+            android:inputType="number"
+            android:backgroundTint="@color/uiBlue"
+            android:singleLine="true"
+            android:textSize="@dimen/normal"/>
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"></Spinner>
+    </LinearLayout>
+</LinearLayout>
