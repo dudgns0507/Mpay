@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="uiBlue">#0076FF</color>
+    <color name="uiGrey">#2F2F2F</color>
+    <color name="uiYellow">#FFFF00</color>
+    <color name="uiWhite">#FFFFEE</color>
+    <color name="uiBlack">#111100</color>
+    <color name="uiYellowCheckBox">#B7B700</color>
+    <color name="uiRedButton">#FF2F2F</color>
+    <color name="uiGreenButton">#00B700</color>
+
+    <color name="background">#121D33</color>
+
+    <color name="palette1">#F44336</color>
+    <color name="palette2">#ab47bc</color>
+    <color name="palette3">#42A5F5</color>
+    <color name="palette4">#1DE9B6</color>
+    <color name="palette5">#FFEB3B</color>
+    <color name="palette6">#845747</color>
+    <color name="palette7">#78909C</color>
+    <color name="palette8">#FFFFFF</color>
+
+    <color name="tagRed">#80FF0000</color>
+    <color name="tagGreen">#8000FF14</color>
+
+    <color name="textWhite">#FFFFFF</color>
+    <color name="textYellow">#FFFF00</color>
+    <color name="textGrey">#3EFFFFFF</color>
+    <color name="textGreen">#00B700</color>
+    <color name="textRed">#FF0000</color>
+</resources>
