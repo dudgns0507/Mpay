@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"s
+        android:orientation="vertical"
         android:gravity="center_horizontal"
         android:layout_centerInParent="true">
         <Space
@@ -44,6 +44,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="이메일"
+                android:backgroundTint="@color/uiBlue"
+                android:singleLine="true"
                 android:textSize="18sp"/>
 
             <Space
@@ -55,6 +57,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="비밀번호"
+                android:backgroundTint="@color/uiBlue"
+                android:singleLine="true"
                 android:textSize="18sp"/>
 
             <Space
@@ -82,13 +86,13 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/circle_blue"/>
+                        android:src="@drawable/circle_blue" />
                     <io.github.dudgns0507.mpay.widget.NBBTextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="Go!"
-                        android:textSize="16sp"/>
+                        android:textSize="14sp"/>
                 </FrameLayout>
 
                 <Space
