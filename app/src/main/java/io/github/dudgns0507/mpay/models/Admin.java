@@ -2,7 +2,7 @@ package io.github.dudgns0507.mpay.models;
 
 public class Admin
 {
-    private String budget;
+    private int budget;
 
     private int _id;
 
@@ -10,16 +10,16 @@ public class Admin
 
     private String name;
 
-    private int account;
+    private String account;
 
     private String explain;
 
-    public String getBudget ()
+    public int getBudget ()
     {
         return budget;
     }
 
-    public void setBudget (String budget)
+    public void setBudget (int budget)
     {
         this.budget = budget;
     }
@@ -54,12 +54,12 @@ public class Admin
         this.name = name;
     }
 
-    public int getAccount ()
+    public String getAccount ()
     {
         return account;
     }
 
-    public void setAccount (int account)
+    public void setAccount (String account)
     {
         this.account = account;
     }

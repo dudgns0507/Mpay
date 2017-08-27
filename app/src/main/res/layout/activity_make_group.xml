@@ -18,11 +18,10 @@
             android:layout_width="20dp"
             android:layout_height="wrap_content" />
         <ImageView
-            android:id="@+id/dashboard_btn"
+            android:id="@+id/back_btn"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_arrow_back_white_48dp"
-            android:layout_weight="1"/>
+            android:src="@drawable/ic_arrow_back_white_48dp"/>
         <Space
             android:layout_width="20dp"
             android:layout_height="wrap_content" />
@@ -36,17 +35,7 @@
             android:layout_weight="1"/>
 
         <Space
-            android:layout_width="20dp"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:id="@+id/setting_btn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_settings_white_48dp"
-            android:layout_weight="1"
-            android:visibility="invisible"/>
-        <Space
-            android:layout_width="20dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content" />
     </LinearLayout>
     <FrameLayout
@@ -54,6 +43,7 @@
         android:layout_height="match_parent"
         android:padding="16dp">
         <LinearLayout
+            android:id="@+id/first"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -112,7 +102,7 @@
                     android:id="@+id/group_account"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="5"
+                    android:layout_weight="1"
                     android:hint="입금 계좌번호 입력(- 없이)"
                     android:inputType="number"
                     android:backgroundTint="@color/uiBlue"
@@ -120,9 +110,9 @@
                     android:textSize="@dimen/normal"/>
 
                 <Spinner
-                    android:layout_width="0dp"
+                    android:id="@+id/spinner"
+                    android:layout_width="120dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"
                     android:spinnerMode="dialog"></Spinner>
             </LinearLayout>
 
@@ -145,6 +135,7 @@
             </FrameLayout>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/second"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -159,7 +150,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:hint="이름, 이메일, 휴대전화"
-                    android:inputType="number"
                     android:backgroundTint="@color/uiBlue"
                     android:singleLine="true"
                     android:textSize="@dimen/normal"/>
@@ -167,6 +157,7 @@
                     android:layout_width="10dp"
                     android:layout_height="wrap_content" />
                 <Button
+                    android:id="@+id/search_btn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

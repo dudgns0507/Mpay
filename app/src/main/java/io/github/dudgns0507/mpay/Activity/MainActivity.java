@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.github.dudgns0507.mpay.R;
 import io.github.dudgns0507.mpay.models.Common;
 import io.github.dudgns0507.mpay.models.Data;
@@ -48,6 +50,18 @@ public class MainActivity extends AppCompatActivity {
 
     @BindString(R.string.baseurl) String baseUrl;
 
+    @OnClick(R.id.addgroup) void onAddClicked() {
+        Intent intent = new Intent(MainActivity.this, MakeGroupActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    @OnClick(R.id.addgroup_none) void onAddClicked2() {
+        Intent intent = new Intent(MainActivity.this, MakeGroupActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +69,12 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         loadGroup();
+        listview_top.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+        });
     }
 
     private void loadGroup() {
@@ -79,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                             top_none.setVisibility(View.GONE);
                             top.setVisibility(View.VISIBLE);
                             ArrayList<String> admin = new ArrayList<>();
-                            for(int i = 0; i <= res.getResult().getAdmin().length; i++) {
+                            for(int i = 0; i < res.getResult().getAdmin().length; i++) {
                                 admin.add(res.getResult().getAdmin()[i].getName());
                             }
                             admin_adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, admin);
@@ -89,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                             bottom_none.setVisibility(View.GONE);
                             listview_bottom.setVisibility(View.VISIBLE);
                             ArrayList<String> group = new ArrayList<>();
-                            for(int i = 0; i <= res.getResult().getAdmin().length; i++) {
+                            for(int i = 0; i < res.getResult().getGroup().length; i++) {
                                 if(res.getResult().getGroup()[i].getAdmin() == data.get_id())
                                     continue;
                                 group.add(res.getResult().getGroup()[i].getName());
