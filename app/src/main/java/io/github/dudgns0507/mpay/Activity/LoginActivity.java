@@ -2,10 +2,12 @@ package io.github.dudgns0507.mpay.Activity;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -70,6 +72,9 @@ public class LoginActivity extends AppCompatActivity {
         Glide.with(this).load(R.drawable.logo_white).into(logo);
         Glide.with(this).load(R.drawable.textlogo_white).into(textlogo);
 
+        SharedPreferences sp = getSharedPreferences(getPackageName(), MODE_PRIVATE);
+        email_edit.setText(sp.getString("email", ""));
+
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {
@@ -114,6 +119,12 @@ public class LoginActivity extends AppCompatActivity {
                     case "200":
                         Snackbar.make(getWindow().getDecorView().getRootView(), "로그인이 완료되었습니다.", Snackbar.LENGTH_SHORT).show();
 
+                        SharedPreferences sp = getSharedPreferences(getPackageName(), MODE_PRIVATE);
+                        SharedPreferences.Editor edit = sp.edit();
+
+                        edit.putString("email", email_edit.getText().toString());
+                        edit.apply();
+
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -135,8 +146,31 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Common> call, Throwable t) {
                 asyncDialog.dismiss();
+                Snackbar.make(getWindow().getDecorView().getRootView(), "잠시후 다시시도 해주세요.", Snackbar.LENGTH_SHORT).show();
                 t.printStackTrace();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("종료 하시겠습니까?")
+                .setCancelable(false)
+                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        LoginActivity.super.onBackPressed();
+                    }
+                })
+                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

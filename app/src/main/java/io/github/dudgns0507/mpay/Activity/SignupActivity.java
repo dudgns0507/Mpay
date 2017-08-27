@@ -57,7 +57,10 @@ public class SignupActivity extends AppCompatActivity {
             name_text.setText("");
         }
         if(birth_edit.getText().toString().replace(" ", "").equals("")) {
-            birth_text.setText("생년월일을 입력해주세요.");
+            birth_text.setText("주민번호 앞자리를 입력해주세요.");
+            flag = true;
+        } else if(birth_edit.getText().toString().length() == 7) {
+            birth_text.setText("형식에 맞춰 입력해주세요.");
             flag = true;
         } else {
             birth_text.setText("");
@@ -101,14 +104,13 @@ public class SignupActivity extends AppCompatActivity {
 
             Signup signup = retrofit.create(Signup.class);
 
-            Call<Common> call = signup.signup(name_edit.getText().toString(), email_edit.getText().toString(), passwd_edit.getText().toString(), phone_edit.getText().toString());
+            Call<Common> call = signup.signup(name_edit.getText().toString(), email_edit.getText().toString(), passwd_edit.getText().toString(), phone_edit.getText().toString(), birth_edit.getText().toString());
 
             call.enqueue(new Callback<Common>() {
                 @Override
                 public void onResponse(Call<Common> call, Response<Common> response) {
                     Common common = response.body();
 
-                    Log.w(TAG, common.toString());
                     if(common.getResult().getState().equals("200")) {
                         Snackbar.make(getWindow().getDecorView().getRootView(), "가입이 완료되었습니다.", Snackbar.LENGTH_SHORT).show();
                         new Handler().postDelayed(new Runnable() {

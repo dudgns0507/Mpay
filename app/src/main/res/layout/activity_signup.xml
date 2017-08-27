@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="이름"
-                android:textSize="18sp"/>
+                android:textSize="16sp"/>
             <io.github.dudgns0507.mpay.widget.NBLTextView
                 android:id="@+id/name_text"
                 android:layout_width="match_parent"
@@ -75,8 +75,9 @@
                 android:id="@+id/birth_edit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="생년월일(YYYYMMDD)"
-                android:textSize="18sp"/>
+                android:hint="주민번호 앞자리"
+                android:inputType="numberDecimal"
+                android:textSize="16sp"/>
             <io.github.dudgns0507.mpay.widget.NBLTextView
                 android:id="@+id/birth_text"
                 android:layout_width="match_parent"
@@ -96,7 +97,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="이메일"
-                android:textSize="18sp"/>
+                android:textSize="16sp"/>
             <io.github.dudgns0507.mpay.widget.NBLTextView
                 android:id="@+id/email_text"
                 android:layout_width="match_parent"
@@ -116,7 +117,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="휴대전화 번호"
-                android:textSize="18sp"/>
+                android:inputType="numberDecimal"
+                android:textSize="16sp"/>
             <io.github.dudgns0507.mpay.widget.NBLTextView
                 android:id="@+id/phone_text"
                 android:layout_width="match_parent"
@@ -137,7 +139,7 @@
                 android:layout_height="match_parent"
                 android:hint="비밀번호"
                 android:inputType="textPassword"
-                android:textSize="18sp"/>
+                android:textSize="16sp"/>
             <io.github.dudgns0507.mpay.widget.NBLTextView
                 android:id="@+id/passwd_text"
                 android:layout_width="match_parent"
@@ -158,7 +160,7 @@
                 android:layout_height="match_parent"
                 android:hint="비밀번호 확인"
                 android:inputType="textPassword"
-                android:textSize="18sp"/>
+                android:textSize="16sp"/>
             <io.github.dudgns0507.mpay.widget.NBLTextView
                 android:id="@+id/passwd_confirm_text"
                 android:layout_width="match_parent"

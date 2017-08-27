@@ -13,5 +13,5 @@ import retrofit2.http.POST;
 public interface Signup {
     @FormUrlEncoded
     @POST("/signup")
-    Call<Common> signup(@Field("name") String name, @Field("email") String email, @Field("passwd") String passwd, @Field("phone") String phone);
+    Call<Common> signup(@Field("name") String name, @Field("email") String email, @Field("passwd") String passwd, @Field("phone") String phone, @Field("birth") String birth);
 }
