@@ -9,48 +9,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:background="@color/uiGrey"
             android:orientation="horizontal"
             android:gravity="center_vertical">
-            <Space
-                android:layout_width="20dp"
-                android:layout_height="wrap_content" />
             <ImageView
-                android:id="@+id/dashboard_btn"
+                android:id="@+id/back_btn"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ic_arrow_back_white_48dp"
-                android:layout_weight="1"/>
-            <Space
-                android:layout_width="20dp"
-                android:layout_height="wrap_content" />
+                android:src="@drawable/ic_arrow_back_white_48dp"/>
 
             <io.github.dudgns0507.mpay.widget.NBBTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="사람 선택"
                 android:textAlignment="center"
+                android:layout_centerInParent="true"
                 android:textColor="@color/textWhite"
                 android:textSize="@dimen/uiTitle" />
-
-            <Space
-                android:layout_width="20dp"
-                android:layout_height="wrap_content" />
-            <ImageView
-                android:id="@+id/setting_btn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_settings_white_48dp"
-                android:layout_weight="1"
-                android:visibility="invisible"/>
-            <Space
-                android:layout_width="20dp"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+        </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -67,19 +49,19 @@
                 android:singleLine="true"
                 android:textSize="@dimen/normal"/>
             <ListView
+                android:id="@+id/listview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </ListView>
+                android:layout_height="match_parent"/>
         </LinearLayout>
     </LinearLayout>
     <io.github.dudgns0507.mpay.widget.NBTextView
+        android:id="@+id/title_small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:textSize="@dimen/uiDesc"
         android:layout_marginTop="5dp"
-        android:text="상위 그룹"
+        android:text="title_small"
         android:textColor="@color/textWhite"/>
     <FrameLayout
         android:id="@+id/fin"

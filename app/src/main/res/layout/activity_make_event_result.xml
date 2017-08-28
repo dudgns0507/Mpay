@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="확인"
+                android:text="최종 확인"
                 android:layout_centerInParent="true"
                 android:textAlignment="center"
                 android:textColor="@color/textWhite"
@@ -45,42 +45,47 @@
                 android:paddingTop="80dp"
                 android:paddingBottom="80dp">
                 <io.github.dudgns0507.mpay.widget.NBBTextView
+                    android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="이벤트 제목"
+                    android:text="(title)이벤트 제목"
                     android:textAlignment="center"
                     android:textColor="@color/uiBlack"
                     android:textSize="@dimen/receiptTitle" />
                 <io.github.dudgns0507.mpay.widget.NBBTextView
+                    android:id="@+id/explan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="이벤트 설명"
+                    android:text="(explan)이벤트 설명"
                     android:textAlignment="center"
                     android:textColor="@color/uiBlack"
                     android:textSize="@dimen/receiptExplanation" />
                 <io.github.dudgns0507.mpay.widget.NBBTextView
+                    android:id="@+id/total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="*"
+                    android:text="(total)*원"
                     android:textAlignment="center"
                     android:textColor="@color/uiBlack"
                     android:textSize="@dimen/receiptInfo" />
 
                 <io.github.dudgns0507.mpay.widget.NBBTextView
+                    android:id="@+id/party"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="*명 참여"
+                    android:text="(party)*명 참여"
                     android:textAlignment="center"
                     android:textColor="@color/uiBlack"
                     android:textSize="@dimen/receiptInfo" />
                 <io.github.dudgns0507.mpay.widget.NBBTextView
+                    android:id="@+id/due_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="*월 *일 마감"
+                    android:text="(due_date)*월 *일 마감"
                     android:textAlignment="center"
                     android:textColor="@color/uiBlack"
                     android:textSize="@dimen/receiptInfo" />

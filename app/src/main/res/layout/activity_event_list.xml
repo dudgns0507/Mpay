@@ -59,9 +59,9 @@
             android:background="@color/uiGrey"
             android:layout_marginBottom="10dp" />
             <!--그룹원 관리-->
-            <Space
-                android:layout_width="20dp"
-                android:layout_height="wrap_content" />
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="wrap_content" />
     </FrameLayout>
     <ListView
         android:id="@+id/listview"
