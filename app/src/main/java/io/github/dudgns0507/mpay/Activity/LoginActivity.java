@@ -127,11 +127,11 @@ public class LoginActivity extends AppCompatActivity {
                         edit.apply();
 
                         Data data = Data.getInstance();
-                        data.set_id(res.getResult().getUser_info().get_id());
-                        data.setBirth(res.getResult().getUser_info().getBirth());
-                        data.setEmail(res.getResult().getUser_info().getEmail());
-                        data.setName(res.getResult().getUser_info().getName());
-                        data.setPhone(res.getResult().getUser_info().getPhone());
+                        data.set_id(res.getResult().getUser_info()[0].get_id());
+                        data.setBirth(res.getResult().getUser_info()[0].getBirth());
+                        data.setEmail(res.getResult().getUser_info()[0].getEmail());
+                        data.setName(res.getResult().getUser_info()[0].getName());
+                        data.setPhone(res.getResult().getUser_info()[0].getPhone());
 
                         new Handler().postDelayed(new Runnable() {
                             @Override

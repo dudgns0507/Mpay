@@ -5,7 +5,7 @@ import io.github.dudgns0507.mpay.models.Group;
 
 public class Result
 {
-    private User_info user_info;
+    private User_info[] user_info;
 
     private String message;
 
@@ -15,12 +15,12 @@ public class Result
 
     private Group[] group;
 
-    public User_info getUser_info ()
+    public User_info[] getUser_info ()
     {
         return user_info;
     }
 
-    public void setUser_info (User_info user_info)
+    public void setUser_info (User_info[] user_info)
     {
         this.user_info = user_info;
     }
