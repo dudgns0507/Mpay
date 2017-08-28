@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <io.github.dudgns0507.mpay.widget.NBTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="토스"
+        android:textSize="@dimen/receiptInfo"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="25dp"
+        android:layout_centerVertical="true"
+        android:textColor="@color/uiBlack"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/uiBlack"
+        android:backgroundTint="@color/tagRed"
+        android:layout_alignParentRight="true"
+        android:text="미납"
+        android:layout_marginRight="25dp"
+        android:layout_centerVertical="true"/>
+    <!--플러스 마이너스에 따라 tagRed(미납), tagGreen(완료)-->
+</RelativeLayout>

@@ -14,7 +14,7 @@
             android:layout_height="80dp"
             android:background="@color/uiGrey">
             <ImageView
-                android:layout_width="15dp"
+                android:layout_width="@dimen/colorbar"
                 android:layout_height="match_parent"
                 android:background="@color/palette1"/>
             <ImageView
@@ -51,7 +51,7 @@
             android:gravity="center_horizontal">
 
             <LinearLayout
-                android:layout_width="330dp"
+                android:layout_width="340dp"
                 android:layout_height="340dp"
                 android:layout_gravity="center"
                 android:background="@color/uiWhite"
@@ -85,32 +85,7 @@
                     android:layout_height="40dp" />
                 <ListView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-                    <!--/////////////////Adapter////////////////////-->
-                    <!--<ListView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="match_parent">-->
-                    <!--<io.github.dudgns0507.mpay.widget.NBTextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="토스"-->
-                    <!--android:textSize="@dimen/receiptInfo"-->
-                    <!--android:layout_alignParentLeft="true"-->
-                    <!--android:layout_marginLeft="25dp"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--android:textColor="@color/textBlack"/>-->
-                    <!--<io.github.dudgns0507.mpay.widget.NBTextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="*원"-->
-                    <!--android:textSize="@dimen/receiptInfo"-->
-                    <!--android:layout_alignParentRight="true"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--android:layout_marginRight="25dp"-->
-                    <!--android:textColor="@color/textGreen"/>-->
-                    <!--플러스 마이너스에 따라 textGreen, textRed-->
-                    <!--</ListView>-->
-                </ListView>
+                android:layout_height="match_parent"/>
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
@@ -118,7 +93,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="80dp">
+        android:layout_marginBottom="90dp">
         <io.github.dudgns0507.mpay.widget.NBTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
