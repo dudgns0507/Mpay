@@ -117,24 +117,6 @@
                     android:layout_height="match_parent"
                     android:spinnerMode="dialog"></Spinner>
             </LinearLayout>
-
-            <FrameLayout
-                android:id="@+id/go_btn_frame"
-                android:layout_width="48dp"
-                android:layout_gravity="right"
-                android:layout_marginTop="50dp"
-                android:layout_height="48dp">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/circle_blue" />
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_arrow_back_white_48dp"
-                    android:rotation="180"/>
-            </FrameLayout>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/second"
@@ -186,23 +168,14 @@
 
             </ListView>
         </LinearLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/go_btn_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:layout_margin="20dp"
+            android:background="@color/uiBlue"
+            android:src="@drawable/ic_arrow_back_white_48dp"
+            android:rotation="180"/>
     </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/fin"
-            android:layout_width="48dp"
-            android:layout_gravity="right"
-            android:layout_marginTop="50dp"
-            android:layout_height="48dp">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/circle_blue" />
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_arrow_back_white_48dp"
-                android:rotation="180"/>
-        </FrameLayout>
 </LinearLayout>

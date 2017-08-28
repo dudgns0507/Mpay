@@ -186,7 +186,6 @@ public class MakeGroupActivity extends AppCompatActivity {
                 }
                 if(!tmp) {
                     mAdapter2.addItem((User_info)mAdapter.getItem(i), true);
-                    Log.w(TAG, mAdapter2.getItem(i).toString());
                     mAdapter2.dataChange();
                 }
             }
@@ -286,6 +285,7 @@ public class MakeGroupActivity extends AppCompatActivity {
 
         public void dataChange(){
             mAdapter.notifyDataSetChanged();
+            mAdapter2.notifyDataSetChanged();
         }
     }
 }
