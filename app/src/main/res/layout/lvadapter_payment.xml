@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+        <io.github.dudgns0507.mpay.widget.NBTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="현납"
+            android:textSize="@dimen/receiptInfo"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="25dp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/uiBlack"/>
+        <io.github.dudgns0507.mpay.widget.NBTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*원"
+            android:textSize="@dimen/receiptInfo"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25dp"
+            android:textColor="@color/textGreen"/>
+        <!--플러스 마이너스에 따라 textGreen, textRed-->
+</RelativeLayout>
