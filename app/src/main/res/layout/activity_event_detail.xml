@@ -73,7 +73,7 @@
                     <!--<io.github.dudgns0507.mpay.widget.NBTextView-->
                         <!--android:layout_width="wrap_content"-->
                         <!--android:layout_height="wrap_content"-->
-                        <!--android:text="잔여"-->
+                        <!--android:text="현납"-->
                         <!--android:textSize="@dimen/receiptInfo"-->
                         <!--android:layout_alignParentLeft="true"-->
                         <!--android:layout_marginLeft="25dp"-->
