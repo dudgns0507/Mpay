@@ -41,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private ArrayAdapter admin_adapter;
     private ArrayAdapter group_adapter;
+    private ArrayList<String> admin = new ArrayList<>();
+    private ArrayList<String> group = new ArrayList<>();
+    private ArrayList<Integer> admin_id = new ArrayList<>();
+    private ArrayList<Integer> group_id = new ArrayList<>();
 
     @BindView(R.id.listview_top) ListView listview_top;
     @BindView(R.id.listview_bottom) ListView listview_bottom;
@@ -72,7 +76,22 @@ public class MainActivity extends AppCompatActivity {
         listview_top.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(MainActivity.this, EventListActivity.class);
+                intent.putExtra("id", admin_id.get(i));
+                intent.putExtra("title", admin.get(i));
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
 
+        listview_bottom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(MainActivity.this, EventListActivity.class);
+                intent.putExtra("id", group_id.get(i));
+                intent.putExtra("title", group.get(i));
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
     }
@@ -98,9 +117,9 @@ public class MainActivity extends AppCompatActivity {
                         if(res.getResult().getAdmin().length != 0) {
                             top_none.setVisibility(View.GONE);
                             top.setVisibility(View.VISIBLE);
-                            ArrayList<String> admin = new ArrayList<>();
                             for(int i = 0; i < res.getResult().getAdmin().length; i++) {
                                 admin.add(res.getResult().getAdmin()[i].getName());
+                                admin_id.add(res.getResult().getAdmin()[i].get_id());
                             }
                             admin_adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, admin);
                             listview_top.setAdapter(admin_adapter);
@@ -108,11 +127,11 @@ public class MainActivity extends AppCompatActivity {
                         if(res.getResult().getGroup().length != 0) {
                             bottom_none.setVisibility(View.GONE);
                             listview_bottom.setVisibility(View.VISIBLE);
-                            ArrayList<String> group = new ArrayList<>();
                             for(int i = 0; i < res.getResult().getGroup().length; i++) {
                                 if(res.getResult().getGroup()[i].getAdmin() == data.get_id())
                                     continue;
                                 group.add(res.getResult().getGroup()[i].getName());
+                                group_id.add(res.getResult().getGroup()[i].get_id());
                             }
                             group_adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, group);
                             listview_bottom.setAdapter(group_adapter);
