@@ -14,24 +14,6 @@
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-<<<<<<< HEAD
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@color/background"
-            android:padding="16dp"
-            android:visibility="visible">
-            <io.github.dudgns0507.mpay.widget.NBLEditTextView
-                android:id="@+id/group_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="그룹 이름"
-                android:backgroundTint="@color/uiBlue"
-                android:singleLine="true"
-                android:textSize="@dimen/normal"/>
-            <android.support.v4.widget.Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-=======
             android:layout_height="80dp"
             android:background="@color/uiGrey"
             android:orientation="horizontal"
@@ -47,7 +29,6 @@
             <Space
                 android:layout_width="20dp"
                 android:layout_height="wrap_content" />
->>>>>>> 734b542efef0d74341f05d2aa5ad43ca245650f7
 
             <io.github.dudgns0507.mpay.widget.NBBTextView
                 android:layout_width="wrap_content"
@@ -97,27 +78,6 @@
                 <android.support.v4.widget.Space
                     android:layout_width="match_parent"
                     android:layout_height="20dp" />
-
-<<<<<<< HEAD
-                <Spinner
-                    android:id="@+id/spinner"
-                    android:layout_width="120dp"
-                    android:layout_height="match_parent"
-                    android:spinnerMode="dialog"></Spinner>
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/second"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="invisible">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-=======
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
@@ -139,7 +99,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="20dp" />
 
->>>>>>> 734b542efef0d74341f05d2aa5ad43ca245650f7
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -148,14 +107,9 @@
                         android:id="@+id/group_account"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-<<<<<<< HEAD
-                        android:layout_weight="4"
-                        android:hint="이름, 이메일, 휴대전화"
-=======
                         android:layout_weight="1"
                         android:hint="입금 계좌번호 입력(- 없이)"
                         android:inputType="number"
->>>>>>> 734b542efef0d74341f05d2aa5ad43ca245650f7
                         android:backgroundTint="@color/uiBlue"
                         android:singleLine="true"
                         android:textSize="@dimen/normal"/>
@@ -166,24 +120,6 @@
                         android:layout_height="match_parent"
                         android:spinnerMode="dialog"></Spinner>
                 </LinearLayout>
-
-                <FrameLayout
-                    android:id="@+id/go_btn_frame"
-                    android:layout_width="48dp"
-                    android:layout_gravity="right"
-                    android:layout_marginTop="50dp"
-                    android:layout_height="48dp">
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/circle_blue" />
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_arrow_back_white_48dp"
-                        android:rotation="180"/>
-                </FrameLayout>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/second"
@@ -207,7 +143,6 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="4"
                             android:hint="이름, 이메일, 휴대전화"
-                            android:inputType="number"
                             android:backgroundTint="@color/uiBlue"
                             android:singleLine="true"
                             android:textSize="@dimen/normal"/>
@@ -222,59 +157,29 @@
                             android:text="검색"></Button>
                     </LinearLayout>
                     <ListView
+                        android:id="@+id/search_listview"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                     </ListView>
                 </LinearLayout>
                 <ListView
-                    android:id="@+id/search_listview"
+                    android:id="@+id/add_listview"
                     android:layout_width="match_parent"
-<<<<<<< HEAD
-                    android:layout_height="wrap_content">
-                </ListView>
-            </LinearLayout>
-            <ListView
-                android:id="@+id/add_listview"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@color/uiBlack">
-
-            </ListView>
-        </LinearLayout>
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/go_btn_frame"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|bottom"
-            android:layout_margin="20dp"
-            android:background="@color/uiBlue"
-=======
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:background="@color/uiBlack">
 
                 </ListView>
             </LinearLayout>
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/go_btn_frame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:layout_margin="20dp"
+                android:backgroundTint="@color/uiBlue"
+                android:src="@drawable/ic_arrow_back_white_48dp"
+                android:rotation="180"/>
         </FrameLayout>
     </LinearLayout>
-    <FrameLayout
-        android:id="@+id/fin"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="15dp">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/circle_blue" />
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center"
->>>>>>> 734b542efef0d74341f05d2aa5ad43ca245650f7
-            android:src="@drawable/ic_arrow_back_white_48dp"
-            android:rotation="180"/>
-    </FrameLayout>
 </LinearLayout>
