@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="io.github.dudgns0507.mpay.Activity.MakeEventActivity_3">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/uiGrey"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/dashboard_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_arrow_back_white_48dp"
+                android:layout_weight="1"/>
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="wrap_content" />
+
+            <io.github.dudgns0507.mpay.widget.NBBTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="금액 지정"
+                android:textAlignment="center"
+                android:textColor="@color/textWhite"
+                android:textSize="@dimen/uiTitle" />
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/setting_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_settings_white_48dp"
+                android:layout_weight="1"
+                android:visibility="invisible"/>
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@color/background">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <io.github.dudgns0507.mpay.widget.NBLEditTextView
+                    android:id="@+id/searchbox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:hint="금액(원)"
+                    android:inputType="number"
+                    android:backgroundTint="@color/uiBlue"
+                    android:singleLine="true"
+                    android:textSize="@dimen/normal"/>
+                <android.support.v4.widget.Space
+                    android:layout_width="10dp"
+                    android:layout_height="10dp" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="적용"></Button>
+            </LinearLayout>
+            <android.support.v4.widget.Space
+                android:layout_width="10dp"
+                android:layout_height="10dp" />
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </ListView>
+        </LinearLayout>
+    </LinearLayout>
+    <io.github.dudgns0507.mpay.widget.NBTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/uiDesc"
+        android:layout_marginTop="5dp"
+        android:text="상위 그룹"
+        android:textColor="@color/textWhite"/>
+    <FrameLayout
+        android:id="@+id/fin"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="15dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/circle_blue" />
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_arrow_back_white_48dp"
+            android:rotation="180"/>
+    </FrameLayout>
+</RelativeLayout>
