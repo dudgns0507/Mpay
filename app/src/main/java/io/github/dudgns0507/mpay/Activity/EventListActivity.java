@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ import io.github.dudgns0507.mpay.models.Data;
 import io.github.dudgns0507.mpay.models.Events;
 import io.github.dudgns0507.mpay.models.User_info;
 import io.github.dudgns0507.mpay.util.FindEvents;
+import io.github.dudgns0507.mpay.util.FindGroup;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,9 +45,11 @@ public class EventListActivity extends AppCompatActivity {
 
     private int id;
     private ListViewAdapter mAdapter;
+    private Common commonData;
 
     @BindView(R.id.title) TextView title;
     @BindView(R.id.listview) ListView listview;
+    @BindView(R.id.budget) TextView budget;
 
     @BindString(R.string.baseurl) String baseUrl;
 
@@ -60,13 +64,23 @@ public class EventListActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        title.setText(intent.getStringExtra("title"));
+        final String title_str = intent.getStringExtra("title");
+        title.setText(title_str);
         id = intent.getIntExtra("id", 0);
 
         mAdapter = new ListViewAdapter(this);
         listview.setAdapter(mAdapter);
 
-        loadEvents();
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent1 = new Intent(EventListActivity.this, EventDetailActivity.class);
+                intent1.putExtra("event_id", commonData.getResult().getEvents()[i].get_id());
+                intent1.putExtra("title", title_str);
+                startActivity(intent1);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
     }
 
     void loadEvents() {
@@ -84,19 +98,56 @@ public class EventListActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Common> call, Response<Common> response) {
                 Common res = response.body();
+                commonData = res;
+                if(res != null) {
+                    switch (res.getResult().getState()) {
+                        case "200":
+                            mAdapter.clear();
+                            for (int i = 0; i < res.getResult().getEvents().length; i++) {
+                                mAdapter.addItem(res.getResult().getEvents()[i]);
+                            }
+                            mAdapter.dataChange();
+                            break;
+                        case "201":
+                            Snackbar.make(getWindow().getDecorView().getRootView(), "로딩 실패", Snackbar.LENGTH_SHORT).show();
+                            break;
+                    }
+                    loadGroup();
+                }
+            }
 
-                switch (res.getResult().getState()) {
-                    case "200":
-                        mAdapter.clear();
-                        for(int i = 0; i < res.getResult().getEvents().length; i++) {
-                            mAdapter.addItem(res.getResult().getEvents()[i]);
-                        }
-                        mAdapter.dataChange();
-                        break;
-                    case "201":
-                        Snackbar.make(getWindow().getDecorView().getRootView(), "로딩 실패", Snackbar.LENGTH_SHORT).show();
-                        break;
+            @Override
+            public void onFailure(Call<Common> call, Throwable t) {
+                Snackbar.make(getWindow().getDecorView().getRootView(), "로딩 실패", Snackbar.LENGTH_SHORT).show();
+                t.printStackTrace();
+            }
+        });
+    }
 
+    void loadGroup() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        FindGroup findGroup = retrofit.create(FindGroup.class);
+
+        Call<Common> call = findGroup.find("", id);
+
+        call.enqueue(new Callback<Common>() {
+            @Override
+            public void onResponse(Call<Common> call, Response<Common> response) {
+                Common res = response.body();
+
+                if(res != null) {
+                    switch (res.getResult().getState()) {
+                        case "200":
+                            budget.setText("자금 : " + res.getResult().getGroup()[0].getBudget() + "원");
+                            break;
+                        case "201":
+                            Snackbar.make(getWindow().getDecorView().getRootView(), "로딩 실패", Snackbar.LENGTH_SHORT).show();
+                            break;
+                    }
                 }
             }
 
@@ -112,6 +163,12 @@ public class EventListActivity extends AppCompatActivity {
     public void onBackPressed() {
         finish();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadEvents();
     }
 
     public static class ViewHolder {
@@ -174,7 +231,6 @@ public class EventListActivity extends AppCompatActivity {
                 holder.state.setBackgroundResource(R.color.tagGreen);
 
             String id_str = "palette" + mData.getTag_color();
-            Log.w(TAG, id_str);
             int id = mContext.getResources().getIdentifier(id_str, "color", getPackageName());
             holder.tag.setBackgroundResource(id);
 

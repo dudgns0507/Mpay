@@ -116,37 +116,39 @@ public class LoginActivity extends AppCompatActivity {
                 asyncDialog.dismiss();
                 Common res = response.body();
 
-                switch (res.getResult().getState()) {
-                    case "200":
-                        Snackbar.make(getWindow().getDecorView().getRootView(), "로그인이 완료되었습니다.", Snackbar.LENGTH_SHORT).show();
+                if(res != null) {
+                    switch (res.getResult().getState()) {
+                        case "200":
+                            Snackbar.make(getWindow().getDecorView().getRootView(), "로그인이 완료되었습니다.", Snackbar.LENGTH_SHORT).show();
 
-                        SharedPreferences sp = getSharedPreferences(getPackageName(), MODE_PRIVATE);
-                        SharedPreferences.Editor edit = sp.edit();
+                            SharedPreferences sp = getSharedPreferences(getPackageName(), MODE_PRIVATE);
+                            SharedPreferences.Editor edit = sp.edit();
 
-                        edit.putString("email", email_edit.getText().toString());
-                        edit.apply();
+                            edit.putString("email", email_edit.getText().toString());
+                            edit.apply();
 
-                        Data data = Data.getInstance();
-                        data.set_id(res.getResult().getUser_info()[0].get_id());
-                        data.setBirth(res.getResult().getUser_info()[0].getBirth());
-                        data.setEmail(res.getResult().getUser_info()[0].getEmail());
-                        data.setName(res.getResult().getUser_info()[0].getName());
-                        data.setPhone(res.getResult().getUser_info()[0].getPhone());
+                            Data data = Data.getInstance();
+                            data.set_id(res.getResult().getUser_info()[0].get_id());
+                            data.setBirth(res.getResult().getUser_info()[0].getBirth());
+                            data.setEmail(res.getResult().getUser_info()[0].getEmail());
+                            data.setName(res.getResult().getUser_info()[0].getName());
+                            data.setPhone(res.getResult().getUser_info()[0].getPhone());
 
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                                finish();
-                            }
-                        }, 500);
-                        break;
-                    case "201":
-                        Snackbar.make(getWindow().getDecorView().getRootView(), "이메일 및 비밀번호를 확인해주세요.", Snackbar.LENGTH_SHORT).show();
-                        break;
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                                    finish();
+                                }
+                            }, 500);
+                            break;
+                        case "201":
+                            Snackbar.make(getWindow().getDecorView().getRootView(), "이메일 및 비밀번호를 확인해주세요.", Snackbar.LENGTH_SHORT).show();
+                            break;
 
+                    }
                 }
                 asyncDialog.dismiss();
             }
