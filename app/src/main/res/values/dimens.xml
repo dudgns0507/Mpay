@@ -24,4 +24,6 @@
     <dimen name="receiptInfo">25sp</dimen>
 
     <dimen name="normal">14sp</dimen>
+    <dimen name="uiDesc">10sp</dimen>
+    <dimen name="square_size">30dp</dimen>
 </resources>
