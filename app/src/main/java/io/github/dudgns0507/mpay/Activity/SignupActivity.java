@@ -51,43 +51,31 @@ public class SignupActivity extends AppCompatActivity {
         boolean flag = false;
 
         if(name_edit.getText().toString().replace(" ", "").equals("")) {
-            name_text.setText("아이디를 입력해주세요.");
+            name_edit.setError("아이디를 입력해주세요.");
             flag = true;
-        } else {
-            name_text.setText("");
         }
         if(birth_edit.getText().toString().replace(" ", "").equals("")) {
-            birth_text.setText("주민번호 앞자리를 입력해주세요.");
+            birth_edit.setError("주민번호 앞자리를 입력해주세요.");
             flag = true;
         } else if(birth_edit.getText().toString().length() == 7) {
-            birth_text.setText("형식에 맞춰 입력해주세요.");
+            birth_edit.setError("형식에 맞춰 입력해주세요.");
             flag = true;
-        } else {
-            birth_text.setText("");
         }
         if(email_edit.getText().toString().replace(" ", "").equals("")) {
-            email_text.setText("이메일을 입력해주세요.");
+            email_edit.setError("이메일을 입력해주세요.");
             flag = true;
-        } else {
-            email_text.setText("");
         }
         if(phone_edit.getText().toString().replace(" ", "").equals("")) {
-            phone_text.setText("휴대폰 번호를 입력해주세요.");
+            phone_edit.setError("휴대폰 번호를 입력해주세요.");
             flag = true;
-        } else {
-            phone_text.setText("");
         }
         if(passwd_edit.getText().toString().replace(" ", "").equals("")) {
-            passwd_text.setText("비밀번호를 입력해주세요.");
+            passwd_edit.setError("비밀번호를 입력해주세요.");
             flag = true;
-        } else {
-            passwd_text.setText("");
         }
         if(!passwd_edit.getText().toString().equals(passwd_confirm_edit.getText().toString())) {
-            passwd_confirm_text.setText("비밀번호가 다릅니다.");
+            passwd_confirm_edit.setError("비밀번호가 다릅니다.");
             flag = true;
-        } else {
-            passwd_confirm_text.setText("");
         }
 
         if(!flag) {

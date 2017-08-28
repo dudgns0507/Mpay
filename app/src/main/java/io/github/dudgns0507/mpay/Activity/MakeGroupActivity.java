@@ -25,7 +25,7 @@ public class MakeGroupActivity extends AppCompatActivity {
     ArrayList<String> bankList = new ArrayList<>(
             Arrays.asList("NH농협", "KB국민", "신한", "우리", "하나", "IBK기업", "외환", "SC제일", "씨티", "KDB산업", "새마을", "대구", "광주", "우체국", "신협", "전북", "경남", "부산", "수협", "제주", "저축은행", "산림조합", "케이뱅크", "카카오", "HSBC", "중국공상", "JP모간", "도이치", "BNP파리바", "BOA")
     );
-    private String bank;
+    private String bank = "";
     private boolean page = false;
 
     @BindView(R.id.spinner) Spinner sp;
@@ -38,9 +38,29 @@ public class MakeGroupActivity extends AppCompatActivity {
 
     @OnClick(R.id.go_btn_frame) void onGoClicked() {
         if(!page) {
-            first.setVisibility(View.GONE);
-            second.setVisibility(View.VISIBLE);
-            page = true;
+            boolean flag = false;
+            if (group_name.getText().toString().trim().equals("")) {
+                group_name.setError("그룹 이름을 입력해주세요");
+                flag = true;
+            }
+            if(group_account.getText().toString().trim().equals("")) {
+                group_account.setError("현재 자금을 입력해주세요");
+                flag = true;
+            }
+            if(group_message.getText().toString().trim().equals("")) {
+                group_message.setError("초대 메세질ㄹ 입력해주세요.");
+                flag = true;
+            }
+            if(group_account.getText().toString().trim().equals("") || bank.equals("")) {
+                group_account.setError("계좌 번호를 입력해주세요.");
+                flag = true;
+            }
+
+            if(!flag) {
+                first.setVisibility(View.GONE);
+                second.setVisibility(View.VISIBLE);
+                page = true;
+            }
         } else {
 
         }

@@ -149,23 +149,7 @@
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-<<<<<<< HEAD
-                    android:layout_weight="4"
-                    android:hint="이름, 이메일, 휴대전화"
-                    android:backgroundTint="@color/uiBlue"
-                    android:singleLine="true"
-                    android:textSize="@dimen/normal"/>
-                <android.support.v4.widget.Space
-                    android:layout_width="10dp"
-                    android:layout_height="wrap_content" />
-                <Button
-                    android:id="@+id/search_btn"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="검색"></Button>
-=======
+                    android:layout_height="80dp"
                     android:orientation="horizontal"
                     android:padding="16dp">
                     <io.github.dudgns0507.mpay.widget.NBLEditTextView
@@ -182,6 +166,7 @@
                         android:layout_width="10dp"
                         android:layout_height="wrap_content" />
                     <Button
+                        android:id="@+id/search_btn"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -191,7 +176,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                 </ListView>
->>>>>>> d97a3ce386c81363b50bf86bd4b642ba805e3292
             </LinearLayout>
             <ListView
                 android:layout_width="match_parent"
