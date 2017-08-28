@@ -9,11 +9,21 @@ public class Result
 
     private String message;
 
+    private Events[] events;
+
     private Admin[] admin;
 
     private String state;
 
     private Group[] group;
+
+    public Events[] getEvents() {
+        return events;
+    }
+
+    public void setEvents(Events[] events) {
+        this.events = events;
+    }
 
     public User_info[] getUser_info ()
     {
@@ -68,6 +78,6 @@ public class Result
     @Override
     public String toString()
     {
-        return "ClassPojo [user_info = "+user_info+", message = "+message+", admin = "+admin+", state = "+state+", group = "+group+"]";
+        return "ClassPojo [user_info = "+user_info+", message = "+message+", admin = "+admin+", state = "+state+", group = "+group+", events = "+events+"]";
     }
 }
