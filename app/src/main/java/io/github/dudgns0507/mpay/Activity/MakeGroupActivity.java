@@ -30,8 +30,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.dudgns0507.mpay.R;
 import io.github.dudgns0507.mpay.models.Common;
+import io.github.dudgns0507.mpay.models.CommonRequest;
+import io.github.dudgns0507.mpay.models.Data;
+import io.github.dudgns0507.mpay.models.Member;
 import io.github.dudgns0507.mpay.models.User_info;
 import io.github.dudgns0507.mpay.util.Find;
+import io.github.dudgns0507.mpay.util.NewGroup;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -89,7 +93,71 @@ public class MakeGroupActivity extends AppCompatActivity {
                 page = true;
             }
         } else {
+            asyncDialog = new ProgressDialog(MakeGroupActivity.this);
+            asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            asyncDialog.setMessage("그룹 생성중입니다.. ");
 
+            asyncDialog.show();
+
+            Data data = Data.getInstance();
+
+            CommonRequest req = new CommonRequest();
+            req.setName(group_name.getText().toString());
+            req.setAdmin(data.get_id());
+            req.setExplain(group_message.getText().toString());
+            req.setBudget(Integer.parseInt(group_budget.getText().toString()));
+            req.setAccount(bank + " " + group_account.getText().toString());
+
+            Member[] members = new Member[mAdapter2.getCount()];
+            for(int i = 0; i < mAdapter2.getCount(); i++) {
+                User_info user_info = (User_info) mAdapter2.getItem(i);
+                Member member = new Member();
+                member.setUser_id(user_info.get_id());
+                if(user_info.get_id() == data.get_id())
+                    member.setState("admin");
+                else
+                    member.setState("none");
+
+                members[i] = member;
+            }
+
+            req.setMember(members);
+
+            Log.w(TAG, req.toString());
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(baseUrl)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            NewGroup newGroup = retrofit.create(NewGroup.class);
+
+            Call<Common> call = newGroup.newGroup(req);
+            call.enqueue(new Callback<Common>() {
+                @Override
+                public void onResponse(Call<Common> call, Response<Common> response) {
+                    Common res = response.body();
+
+                    switch (res.getResult().getState()) {
+                        case "200":
+                            Snackbar.make(getWindow().getDecorView().getRootView(), "추가가 완료되었습니다.", Snackbar.LENGTH_SHORT).show();
+                            onBackPressed();
+                            break;
+                        case "201":
+                            Snackbar.make(getWindow().getDecorView().getRootView(), "잠시후 다시시도 해주세요.", Snackbar.LENGTH_SHORT).show();
+                            break;
+
+                    }
+                    asyncDialog.dismiss();
+                }
+
+                @Override
+                public void onFailure(Call<Common> call, Throwable t) {
+                    asyncDialog.dismiss();
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "잠시후 다시시도 해주세요.", Snackbar.LENGTH_SHORT).show();
+                    t.printStackTrace();
+                }
+            });
         }
     }
 
@@ -99,7 +167,7 @@ public class MakeGroupActivity extends AppCompatActivity {
         } else {
             asyncDialog = new ProgressDialog(MakeGroupActivity.this);
             asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            asyncDialog.setMessage("로그인중입니다.. ");
+            asyncDialog.setMessage("검색중입니다.. ");
 
             asyncDialog.show();
 
@@ -114,7 +182,6 @@ public class MakeGroupActivity extends AppCompatActivity {
             call.enqueue(new Callback<Common>() {
                 @Override
                 public void onResponse(Call<Common> call, Response<Common> response) {
-                    asyncDialog.dismiss();
                     Common res = response.body();
 
                     switch (res.getResult().getState()) {

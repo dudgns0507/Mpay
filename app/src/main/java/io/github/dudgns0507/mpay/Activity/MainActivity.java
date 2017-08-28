@@ -114,6 +114,11 @@ public class MainActivity extends AppCompatActivity {
                 Log.w(TAG, res.toString());
                 switch (res.getResult().getState()) {
                     case "200":
+                        if(group_adapter != null)
+                            group_adapter.clear();
+                        if(admin_adapter != null)
+                            admin_adapter.clear();
+
                         if(res.getResult().getAdmin().length != 0) {
                             top_none.setVisibility(View.GONE);
                             top.setVisibility(View.VISIBLE);
@@ -149,6 +154,12 @@ public class MainActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadGroup();
     }
 
     @Override
