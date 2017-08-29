@@ -12,6 +12,36 @@ public class User_info
 
     private String name;
 
+    private String state;
+
+    private int pay;
+
+    private int paid;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public int getPay() {
+        return pay;
+    }
+
+    public void setPay(int pay) {
+        this.pay = pay;
+    }
+
+    public int getPaid() {
+        return paid;
+    }
+
+    public void setPaid(int paid) {
+        this.paid = paid;
+    }
+
     public String getPhone ()
     {
         return phone;

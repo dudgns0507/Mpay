@@ -13,5 +13,5 @@ import retrofit2.http.POST;
 public interface FindEvents {
     @FormUrlEncoded
     @POST("/find_event")
-    Call<Common> findEvents(@Field("group_id") int group_id, @Field("user_id") int user_id);
+    Call<Common> findEvents(@Field("group_id") int group_id);
 }

@@ -24,6 +24,7 @@ import butterknife.OnClick;
 import io.github.dudgns0507.mpay.R;
 import io.github.dudgns0507.mpay.models.Data;
 import io.github.dudgns0507.mpay.models.Events;
+import io.github.dudgns0507.mpay.models.User_info;
 
 public class AdminEventDetailActivity extends AppCompatActivity {
 
@@ -65,8 +66,8 @@ public class AdminEventDetailActivity extends AppCompatActivity {
         mAdapter = new ListViewAdapter(this);
         listView.setAdapter(mAdapter);
 
-        for(int i = 0; i < data.getEvents().length; i++) {
-            mAdapter.addItem(data.getEvents()[i]);
+        for(int l = 0; l < data.getEvents()[j].getUser().length; l++) {
+            mAdapter.addItem(data.getEvents()[j].getUser()[l]);
         }
     }
 
@@ -84,7 +85,7 @@ public class AdminEventDetailActivity extends AppCompatActivity {
     public class ListViewAdapter extends BaseAdapter {
 
         private Context mContext = null;
-        private ArrayList<Events> mListData = new ArrayList<>();
+        private ArrayList<User_info> mListData = new ArrayList<>();
 
         public ListViewAdapter(Context mContext) {
             super();
@@ -124,15 +125,15 @@ public class AdminEventDetailActivity extends AppCompatActivity {
                 holder = (ViewHolder)convertView.getTag();
             }
 
-            final Events mData = mListData.get(position);
+            final User_info mData = mListData.get(position);
 
-            holder.name.setText(mData.getUser().getName());
+            holder.name.setText(mData.getName());
             holder.money.setText((mData.getPay() - mData.getPaid()) + "원");
 
             return convertView;
         }
 
-        public void addItem(Events event){
+        public void addItem(User_info event){
             mListData.add(event);
         }
 

@@ -46,7 +46,7 @@ public class EventListActivity extends AppCompatActivity {
     private static final String TAG = "EventListActivity";
 
     private Data data = Data.getInstance();
-    private int i, type;
+    private int i, type, id;
     private ListViewAdapter mAdapter;
 
     @BindView(R.id.title) TextView title;
@@ -120,7 +120,13 @@ public class EventListActivity extends AppCompatActivity {
 
         FindEvents findEvents = retrofit.create(FindEvents.class);
 
-        Call<Common> call = findEvents.findEvents(data.getGroup()[i].get_id(), data.get_id());
+        if(type == 1) {
+            id = data.getAdmin()[i].get_id();
+        } else {
+            id = data.getGroup()[i].get_id();
+        }
+
+        Call<Common> call = findEvents.findEvents(id);
 
         call.enqueue(new Callback<Common>() {
             @Override
@@ -216,11 +222,24 @@ public class EventListActivity extends AppCompatActivity {
             final Events mData = mListData.get(position);
 
             holder.title.setText(mData.getName());
-            holder.state.setText(mData.getState());
-            if(mData.getState().equals("미납"))
-                holder.state.setBackgroundResource(R.color.tagRed);
-            else
-                holder.state.setBackgroundResource(R.color.tagGreen);
+
+            if(type == 1) {
+                holder.state.setText(mData.getStatus());
+                if(mData.getStatus().equals("진행"))
+                    holder.state.setBackgroundResource(R.color.tagRed);
+                else
+                    holder.state.setBackgroundResource(R.color.tagGreen);
+            } else {
+                for (int i = 0; i < mData.getUser().length; i++) {
+                    if (mData.getUser()[i].get_id() == mData.get_id()) {
+                        holder.state.setText(mData.getUser()[i].getState());
+                        if (mData.getUser()[i].getState().equals("미납"))
+                            holder.state.setBackgroundResource(R.color.tagRed);
+                        else
+                            holder.state.setBackgroundResource(R.color.tagGreen);
+                    }
+                }
+            }
 
             String id_str = "palette" + mData.getTag_color();
             int id = mContext.getResources().getIdentifier(id_str, "color", getPackageName());

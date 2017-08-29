@@ -22,13 +22,23 @@ public class Events
 
     private int total_paid;
 
-    private User_info user;
+    private String status;
 
-    public User_info getUser() {
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    private User_info[] user;
+
+    public User_info[] getUser() {
         return user;
     }
 
-    public void setUser(User_info user) {
+    public void setUser(User_info[] user) {
         this.user = user;
     }
 

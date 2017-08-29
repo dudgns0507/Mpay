@@ -28,6 +28,7 @@ import butterknife.OnClick;
 import io.github.dudgns0507.mpay.R;
 import io.github.dudgns0507.mpay.models.Common;
 import io.github.dudgns0507.mpay.models.Data;
+import io.github.dudgns0507.mpay.models.Group;
 import io.github.dudgns0507.mpay.models.Result;
 import io.github.dudgns0507.mpay.util.Login;
 import io.github.dudgns0507.mpay.util.MyGroup;
@@ -40,6 +41,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
+    private Data data = Data.getInstance();
     private ArrayAdapter admin_adapter;
     private ArrayAdapter group_adapter;
     private ArrayList<String> admin = new ArrayList<>();
@@ -105,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
 
         MyGroup myGroup = retrofit.create(MyGroup.class);
 
-        final Data data = Data.getInstance();
         Call<Common> call = myGroup.myGroup(data.get_id());
         call.enqueue(new Callback<Common>() {
             @Override
@@ -137,17 +138,20 @@ public class MainActivity extends AppCompatActivity {
                             bottom_none.setVisibility(View.GONE);
                             listview_bottom.setVisibility(View.VISIBLE);
 
+                            Group[] glist = new Group[res.getGroup().length];
+                            int cnt = 0;
                             for(int i = 0; i < res.getGroup().length; i++) {
                                 if(res.getGroup()[i].getAdmin() == data.get_id())
                                     continue;
                                 group.add(res.getGroup()[i].getName());
                                 group_id.add(res.getGroup()[i].get_id());
+                                glist[cnt++] = res.getGroup()[i];
                             }
 
                             group_adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, group);
                             listview_bottom.setAdapter(group_adapter);
 
-                            data.setGroup(res.getGroup());
+                            data.setGroup(glist);
                         }
                         break;
                     case "201":
