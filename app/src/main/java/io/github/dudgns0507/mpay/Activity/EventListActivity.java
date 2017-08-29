@@ -133,12 +133,23 @@ public class EventListActivity extends AppCompatActivity {
             public void onResponse(Call<Common> call, Response<Common> response) {
                 Result res = response.body().getResult();
                 if(res != null) {
-                    data.setEvents(res.getEvents());
                     switch (res.getState()) {
                         case "200":
+                            Events[] events = new Events[res.getEvents().length];
+                            if(type == 2) {
+                                int cnt = 0;
+                                for(int i = 0; i < res.getEvents().length; i++) {
+                                    if(res.getEvents()[i].getStatus().equals("진행"))
+                                        events[cnt++] = res.getEvents()[i];
+                                }
+                                data.setEvents(events);
+                            } else {
+                                data.setEvents(res.getEvents());
+                            }
+
                             mAdapter.clear();
-                            for (int i = 0; i < res.getEvents().length; i++) {
-                                mAdapter.addItem(res.getEvents()[i]);
+                            for (int i = 0; i < data.getEvents().length; i++) {
+                                mAdapter.addItem(data.getEvents()[i]);
                             }
                             mAdapter.dataChange();
                             break;
