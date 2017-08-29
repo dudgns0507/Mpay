@@ -41,6 +41,7 @@ public class AdminEventDetailActivity extends AppCompatActivity {
     @BindView(R.id.leftover) TextView leftover;
     @BindView(R.id.party) TextView party;
     @BindView(R.id.listview) ListView listView;
+    @BindView(R.id.color_bar) ImageView color_bar;
 
     @OnClick(R.id.back_btn) void onBackClicked() {
         onBackPressed();
@@ -59,9 +60,14 @@ public class AdminEventDetailActivity extends AppCompatActivity {
         title.setText(data.getEvents()[j].getName());
         title_small.setText(data.getAdmin()[i].getName());
         budget.setText("총 금액 : " + data.getEvents()[j].getTotal() + "원");
-        leftover.setText(data.getEvents()[j].getTotal_paid() + "원");
+        leftover.setText(data.getEvents()[j].getTotal() - data.getEvents()[j].getTotal_paid() + "원");
         due_date.setText(data.getEvents()[j].getDue_date());
         party.setText(data.getEvents().length + "명");
+
+
+        String id_str = "palette" + data.getEvents()[j].getTag_color();
+        int id = getResources().getIdentifier(id_str, "color", getPackageName());
+        color_bar.setBackgroundResource(id);
 
         mAdapter = new ListViewAdapter(this);
         listView.setAdapter(mAdapter);
