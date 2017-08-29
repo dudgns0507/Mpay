@@ -35,24 +35,46 @@
         </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="vertical"
             android:padding="16dp"
             android:background="@color/background">
-            <io.github.dudgns0507.mpay.widget.NBLEditTextView
-                android:id="@+id/searchbox"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="이름, 이메일, 휴대전화"
-                android:inputType="number"
-                android:backgroundTint="@color/uiBlue"
-                android:singleLine="true"
-                android:textSize="@dimen/normal"/>
+                android:layout_height="80dp"
+                android:orientation="horizontal"
+                android:padding="16dp">
+                <io.github.dudgns0507.mpay.widget.NBLEditTextView
+                    android:id="@+id/searchbox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:hint="이름, 이메일, 휴대전화"
+                    android:backgroundTint="@color/uiBlue"
+                    android:singleLine="true"
+                    android:textSize="@dimen/normal"/>
+                <android.support.v4.widget.Space
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:id="@+id/search_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="검색"></Button>
+            </LinearLayout>
             <ListView
-                android:id="@+id/listview"
+                android:id="@+id/search_listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </LinearLayout>
+        <ListView
+            android:id="@+id/add_listview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="16dp"/>
     </LinearLayout>
     <io.github.dudgns0507.mpay.widget.NBTextView
         android:id="@+id/title_small"

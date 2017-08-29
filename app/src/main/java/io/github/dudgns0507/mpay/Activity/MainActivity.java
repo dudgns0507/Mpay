@@ -28,6 +28,7 @@ import butterknife.OnClick;
 import io.github.dudgns0507.mpay.R;
 import io.github.dudgns0507.mpay.models.Common;
 import io.github.dudgns0507.mpay.models.Data;
+import io.github.dudgns0507.mpay.models.Result;
 import io.github.dudgns0507.mpay.util.Login;
 import io.github.dudgns0507.mpay.util.MyGroup;
 import retrofit2.Call;
@@ -77,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(MainActivity.this, EventListActivity.class);
-                intent.putExtra("id", admin_id.get(i));
-                intent.putExtra("title", admin.get(i));
+                intent.putExtra("i", i);
+                intent.putExtra("type", 1);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -88,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(MainActivity.this, EventListActivity.class);
-                intent.putExtra("id", group_id.get(i));
-                intent.putExtra("title", group.get(i));
+                intent.putExtra("i", i);
+                intent.putExtra("type", 2);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -109,37 +110,44 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<Common>() {
             @Override
             public void onResponse(Call<Common> call, Response<Common> response) {
-                Common res = response.body();
+                Result res = response.body().getResult();
 
-                Log.w(TAG, res.toString());
-                switch (res.getResult().getState()) {
+                switch (res.getState()) {
                     case "200":
                         if(group_adapter != null)
                             group_adapter.clear();
                         if(admin_adapter != null)
                             admin_adapter.clear();
 
-                        if(res.getResult().getAdmin().length != 0) {
+                        if(res.getAdmin().length != 0) {
                             top_none.setVisibility(View.GONE);
                             top.setVisibility(View.VISIBLE);
-                            for(int i = 0; i < res.getResult().getAdmin().length; i++) {
-                                admin.add(res.getResult().getAdmin()[i].getName());
-                                admin_id.add(res.getResult().getAdmin()[i].get_id());
+
+                            for(int i = 0; i < res.getAdmin().length; i++) {
+                                admin.add(res.getAdmin()[i].getName());
+                                admin_id.add(res.getAdmin()[i].get_id());
                             }
+
                             admin_adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, admin);
                             listview_top.setAdapter(admin_adapter);
+
+                            data.setAdmin(res.getAdmin());
                         }
-                        if(res.getResult().getGroup().length != 0) {
+                        if(res.getGroup().length != 0) {
                             bottom_none.setVisibility(View.GONE);
                             listview_bottom.setVisibility(View.VISIBLE);
-                            for(int i = 0; i < res.getResult().getGroup().length; i++) {
-                                if(res.getResult().getGroup()[i].getAdmin() == data.get_id())
+
+                            for(int i = 0; i < res.getGroup().length; i++) {
+                                if(res.getGroup()[i].getAdmin() == data.get_id())
                                     continue;
-                                group.add(res.getResult().getGroup()[i].getName());
-                                group_id.add(res.getResult().getGroup()[i].get_id());
+                                group.add(res.getGroup()[i].getName());
+                                group_id.add(res.getGroup()[i].get_id());
                             }
+
                             group_adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, group);
                             listview_bottom.setAdapter(group_adapter);
+
+                            data.setGroup(res.getGroup());
                         }
                         break;
                     case "201":
@@ -151,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Common> call, Throwable t) {
+                Snackbar.make(getWindow().getDecorView().getRootView(), "로딩 실패", Snackbar.LENGTH_SHORT).show();
                 t.printStackTrace();
             }
         });

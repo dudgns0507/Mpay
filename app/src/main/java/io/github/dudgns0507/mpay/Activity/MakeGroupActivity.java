@@ -178,7 +178,7 @@ public class MakeGroupActivity extends AppCompatActivity {
 
             Find find = retrofit.create(Find.class);
 
-            Call<Common> call = find.find(search_edit.getText().toString());
+            Call<Common> call = find.find(search_edit.getText().toString(), -1);
             call.enqueue(new Callback<Common>() {
                 @Override
                 public void onResponse(Call<Common> call, Response<Common> response) {

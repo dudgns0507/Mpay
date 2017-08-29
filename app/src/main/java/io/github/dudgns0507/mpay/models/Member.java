@@ -2,22 +2,38 @@ package io.github.dudgns0507.mpay.models;
 
 public class Member
 {
-    private String paid;
+    private int paid;
+
+    private String name;
 
     private String state;
 
-    private String pay;
+    private int pay;
 
     private int user_id;
 
-    public String getPaid ()
-    {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getPaid() {
         return paid;
     }
 
-    public void setPaid (String paid)
-    {
+    public void setPaid(int paid) {
         this.paid = paid;
+    }
+
+    public int getPay() {
+        return pay;
+    }
+
+    public void setPay(int pay) {
+        this.pay = pay;
     }
 
     public String getState ()
@@ -28,16 +44,6 @@ public class Member
     public void setState (String state)
     {
         this.state = state;
-    }
-
-    public String getPay ()
-    {
-        return pay;
-    }
-
-    public void setPay (String pay)
-    {
-        this.pay = pay;
     }
 
     public int getUser_id ()

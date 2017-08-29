@@ -1,5 +1,6 @@
 package io.github.dudgns0507.mpay.Activity;
 
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
@@ -30,6 +31,7 @@ import io.github.dudgns0507.mpay.models.Common;
 import io.github.dudgns0507.mpay.models.CommonRequest;
 import io.github.dudgns0507.mpay.models.Data;
 import io.github.dudgns0507.mpay.models.Events;
+import io.github.dudgns0507.mpay.models.Result;
 import io.github.dudgns0507.mpay.models.User_info;
 import io.github.dudgns0507.mpay.util.FindEvents;
 import io.github.dudgns0507.mpay.util.FindGroup;
@@ -43,18 +45,28 @@ public class EventListActivity extends AppCompatActivity {
 
     private static final String TAG = "EventListActivity";
 
-    private int id;
+    private Data data = Data.getInstance();
+    private int i, type;
     private ListViewAdapter mAdapter;
-    private Common commonData;
 
     @BindView(R.id.title) TextView title;
     @BindView(R.id.listview) ListView listview;
     @BindView(R.id.budget) TextView budget;
+    @BindView(R.id.add_btn) ImageView add_btn;
 
     @BindString(R.string.baseurl) String baseUrl;
 
     @OnClick(R.id.back_btn) void onBackClicked() {
         onBackPressed();
+    }
+    @OnClick(R.id.add_btn) void onAddClicked() {
+        if(type == 1) {
+            Intent intent = new Intent(EventListActivity.this, MakeEventActivity_1.class);
+            intent.putExtra("title", title.getText().toString());
+            intent.putExtra("id", data.getAdmin()[i].get_id());
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        }
     }
 
     @Override
@@ -64,9 +76,19 @@ public class EventListActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        final String title_str = intent.getStringExtra("title");
-        title.setText(title_str);
-        id = intent.getIntExtra("id", 0);
+        i = intent.getIntExtra("i", 0);
+        type = intent.getIntExtra("type", 1);
+
+        if(type == 1) {
+            title.setText(data.getAdmin()[i].getName());
+            budget.setText("자금 : " + data.getAdmin()[i].getBudget() + "원");
+            Glide.with(this).load(R.drawable.ic_add_white_48dp).into(add_btn);
+        }
+
+        if(type == 2) {
+            title.setText(data.getGroup()[i].getName());
+            budget.setText("자금 : " + data.getGroup()[i].getBudget() + "원");
+        }
 
         mAdapter = new ListViewAdapter(this);
         listview.setAdapter(mAdapter);
@@ -74,17 +96,23 @@ public class EventListActivity extends AppCompatActivity {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent1 = new Intent(EventListActivity.this, EventDetailActivity.class);
-                intent1.putExtra("event_id", commonData.getResult().getEvents()[i].get_id());
-                intent1.putExtra("title", title_str);
-                startActivity(intent1);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                if(data.getEvents() != null && type == 2) {
+                    ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                    clipboardManager.setText(data.getEvents()[i].getPay() + "원 " + data.getGroup()[i].getAccount());
+
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "클립보드에 복사 되었습니다.", Snackbar.LENGTH_SHORT).show();
+                } else if(type == 1) {
+                    Intent intent = new Intent(EventListActivity.this, AdminEventDetailActivity.class);
+                    intent.putExtra("i", EventListActivity.this.i);
+                    intent.putExtra("j", i);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
             }
         });
     }
 
     void loadEvents() {
-        Data data = Data.getInstance();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -92,57 +120,21 @@ public class EventListActivity extends AppCompatActivity {
 
         FindEvents findEvents = retrofit.create(FindEvents.class);
 
-        Call<Common> call = findEvents.findEvents(id, data.get_id());
+        Call<Common> call = findEvents.findEvents(data.getGroup()[i].get_id(), data.get_id());
 
         call.enqueue(new Callback<Common>() {
             @Override
             public void onResponse(Call<Common> call, Response<Common> response) {
-                Common res = response.body();
-                commonData = res;
+                Result res = response.body().getResult();
                 if(res != null) {
-                    switch (res.getResult().getState()) {
+                    data.setEvents(res.getEvents());
+                    switch (res.getState()) {
                         case "200":
                             mAdapter.clear();
-                            for (int i = 0; i < res.getResult().getEvents().length; i++) {
-                                mAdapter.addItem(res.getResult().getEvents()[i]);
+                            for (int i = 0; i < res.getEvents().length; i++) {
+                                mAdapter.addItem(res.getEvents()[i]);
                             }
                             mAdapter.dataChange();
-                            break;
-                        case "201":
-                            Snackbar.make(getWindow().getDecorView().getRootView(), "로딩 실패", Snackbar.LENGTH_SHORT).show();
-                            break;
-                    }
-                    loadGroup();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Common> call, Throwable t) {
-                Snackbar.make(getWindow().getDecorView().getRootView(), "로딩 실패", Snackbar.LENGTH_SHORT).show();
-                t.printStackTrace();
-            }
-        });
-    }
-
-    void loadGroup() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        FindGroup findGroup = retrofit.create(FindGroup.class);
-
-        Call<Common> call = findGroup.find("", id);
-
-        call.enqueue(new Callback<Common>() {
-            @Override
-            public void onResponse(Call<Common> call, Response<Common> response) {
-                Common res = response.body();
-
-                if(res != null) {
-                    switch (res.getResult().getState()) {
-                        case "200":
-                            budget.setText("자금 : " + res.getResult().getGroup()[0].getBudget() + "원");
                             break;
                         case "201":
                             Snackbar.make(getWindow().getDecorView().getRootView(), "로딩 실패", Snackbar.LENGTH_SHORT).show();
@@ -254,5 +246,11 @@ public class EventListActivity extends AppCompatActivity {
         public void dataChange(){
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        data.setEvents(null);
     }
 }

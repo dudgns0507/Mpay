@@ -29,6 +29,7 @@ import butterknife.OnClick;
 import io.github.dudgns0507.mpay.R;
 import io.github.dudgns0507.mpay.models.Common;
 import io.github.dudgns0507.mpay.models.Data;
+import io.github.dudgns0507.mpay.models.User_info;
 import io.github.dudgns0507.mpay.util.Login;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -55,9 +56,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.go_btn_frame) void onSigninClicked() {
-        if(email_edit.getText().toString().replace(" ", "").equals("")) {
+        if(email_edit.getText().toString().trim().equals("")) {
             Snackbar.make(getWindow().getDecorView().getRootView(), "이메일을 입력해주십시오.", Snackbar.LENGTH_SHORT).show();
-        } else if(passwd_edit.getText().toString().replace(" ", "").equals("")) {
+        } else if(passwd_edit.getText().toString().trim().equals("")) {
             Snackbar.make(getWindow().getDecorView().getRootView(), "비밀번호를 입력해주십시오.", Snackbar.LENGTH_SHORT).show();
         } else {
             login(email_edit.getText().toString(), passwd_edit.getText().toString());
@@ -119,30 +120,36 @@ public class LoginActivity extends AppCompatActivity {
                 if(res != null) {
                     switch (res.getResult().getState()) {
                         case "200":
-                            Snackbar.make(getWindow().getDecorView().getRootView(), "로그인이 완료되었습니다.", Snackbar.LENGTH_SHORT).show();
-
                             SharedPreferences sp = getSharedPreferences(getPackageName(), MODE_PRIVATE);
                             SharedPreferences.Editor edit = sp.edit();
 
                             edit.putString("email", email_edit.getText().toString());
                             edit.apply();
 
-                            Data data = Data.getInstance();
-                            data.set_id(res.getResult().getUser_info()[0].get_id());
-                            data.setBirth(res.getResult().getUser_info()[0].getBirth());
-                            data.setEmail(res.getResult().getUser_info()[0].getEmail());
-                            data.setName(res.getResult().getUser_info()[0].getName());
-                            data.setPhone(res.getResult().getUser_info()[0].getPhone());
+                            if(res.getResult().getUser_info().length > 0) {
+                                Data data = Data.getInstance();
+                                User_info user_info = res.getResult().getUser_info()[0];
 
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    startActivity(intent);
-                                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                                    finish();
-                                }
-                            }, 500);
+                                data.set_id(user_info.get_id());
+                                data.setBirth(user_info.getBirth());
+                                data.setEmail(user_info.getEmail());
+                                data.setName(user_info.getName());
+                                data.setPhone(user_info.getPhone());
+
+                                Snackbar.make(getWindow().getDecorView().getRootView(), "로그인이 완료되었습니다.", Snackbar.LENGTH_SHORT).show();
+
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                                        finish();
+                                    }
+                                }, 500);
+                            } else {
+                                Snackbar.make(getWindow().getDecorView().getRootView(), "잠시후 시도해주세요.", Snackbar.LENGTH_SHORT).show();
+                            }
                             break;
                         case "201":
                             Snackbar.make(getWindow().getDecorView().getRootView(), "이메일 및 비밀번호를 확인해주세요.", Snackbar.LENGTH_SHORT).show();

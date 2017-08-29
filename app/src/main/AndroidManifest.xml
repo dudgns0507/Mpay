@@ -25,10 +25,8 @@
         <activity android:name=".Activity.MakeGroupActivity" />
         <activity android:name=".Activity.EventListActivity" />
         <activity android:name=".Activity.MakeEventActivity_1" />
-        <activity android:name=".Activity.EventDetailActivity" />
         <activity android:name=".Activity.MakeEventResultActivity" />
         <activity android:name=".Activity.AdminEventDetailActivity" />
-        <activity android:name=".Activity.AdminEventDetailMoreActivity" />
         <activity android:name=".Activity.MakeEventActivity_2" />
         <activity android:name=".Activity.MakeEventActivity_3"></activity>
     </application>

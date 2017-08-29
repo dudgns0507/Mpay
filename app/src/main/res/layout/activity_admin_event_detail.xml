@@ -90,6 +90,7 @@
                     android:layout_marginTop="6dp"/>
                 <!--*명 참여-->
                 <ListView
+                    android:id="@+id/listview"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
                 </ListView>

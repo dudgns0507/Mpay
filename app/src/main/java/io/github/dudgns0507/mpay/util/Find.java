@@ -13,5 +13,5 @@ import retrofit2.http.POST;
 public interface Find {
     @FormUrlEncoded
     @POST("/find_user")
-    Call<Common> find(@Field("query") String query);
+    Call<Common> find(@Field("query") String query, @Field("group_id") int group_id);
 }
