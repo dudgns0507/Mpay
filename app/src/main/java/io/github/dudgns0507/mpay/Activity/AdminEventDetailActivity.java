@@ -132,7 +132,7 @@ public class AdminEventDetailActivity extends AppCompatActivity {
         budget.setText("총 금액 : " + data.getEvents()[j].getTotal() + "원");
         leftover.setText(data.getEvents()[j].getTotal() - data.getEvents()[j].getTotal_paid() + "원");
         due_date.setText(data.getEvents()[j].getDue_date());
-        party.setText(data.getEvents().length + "명");
+        party.setText(data.getEvents()[j].getUser().length + "명");
 
 
         String id_str = "palette" + data.getEvents()[j].getTag_color();

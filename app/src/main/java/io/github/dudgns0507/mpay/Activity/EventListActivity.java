@@ -131,7 +131,6 @@ public class EventListActivity extends AppCompatActivity {
                 id = data.getGroup()[i].get_id();
             }
 
-            Log.w(TAG, id + "");
             Call<Common> call = findEvents.findEvents(id);
 
             call.enqueue(new Callback<Common>() {
@@ -188,6 +187,7 @@ public class EventListActivity extends AppCompatActivity {
 
     public static class ViewHolder {
         public TextView title;
+        public TextView pay;
         public Button state;
         public ImageView tag;
     }
@@ -228,6 +228,7 @@ public class EventListActivity extends AppCompatActivity {
                 convertView = inflater.inflate(R.layout.lvadapter_event, null);
 
                 holder.title = (TextView) convertView.findViewById(R.id.title);
+                holder.pay = (TextView) convertView.findViewById(R.id.pay);
                 holder.state = (Button)convertView.findViewById(R.id.state);
                 holder.tag = (ImageView)convertView.findViewById(R.id.tag);
 
@@ -239,7 +240,6 @@ public class EventListActivity extends AppCompatActivity {
             final Events mData = mListData.get(position);
 
             holder.title.setText(mData.getName());
-
             if(type == 1) {
                 holder.state.setText(mData.getStatus());
                 if(mData.getStatus().equals("진행"))
@@ -248,8 +248,10 @@ public class EventListActivity extends AppCompatActivity {
                     holder.state.setBackgroundResource(R.color.tagGreen);
             } else {
                 for (int i = 0; i < mData.getUser().length; i++) {
-                    if (mData.getUser()[i].get_id() == mData.get_id()) {
+                    if (mData.getUser()[i].get_id() == data.get_id()) {
+                        Log.w(TAG, mData.getUser()[i].getState());
                         holder.state.setText(mData.getUser()[i].getState());
+                        holder.pay.setText((mData.getUser()[i].getPay() - mData.getUser()[i].getPaid()) + "원");
                         if (mData.getUser()[i].getState().equals("미납"))
                             holder.state.setBackgroundResource(R.color.tagRed);
                         else
@@ -259,60 +261,62 @@ public class EventListActivity extends AppCompatActivity {
                 holder.state.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        final EditText editText = new EditText(getApplicationContext());
-                        editText.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                        for (int i = 0; i < mData.getUser().length; i++) {
+                            if (mData.getUser()[i].get_id() == data.get_id()) {
+                                if(mData.getUser()[i].getState().equals("미납")) {
+                                    final EditText editText = new EditText(getApplicationContext());
+                                    editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                                    editText.setTextColor(getResources().getColor(R.color.textWhite));
+                                    editText.setHint("금액을 입력해주세요.");
+                                    editText.setHintTextColor(getResources().getColor(R.color.textGrey));
+                                    final android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(EventListActivity.this)
+                                            .setTitle("지불 확인 요청")
+                                            .setView(editText)
+                                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialogInterface, int i) {
+                                                    Retrofit retrofit = new Retrofit.Builder()
+                                                            .baseUrl(baseUrl)
+                                                            .addConverterFactory(GsonConverterFactory.create())
+                                                            .build();
 
-                        final AlertDialog alertDialog = new AlertDialog.Builder(getApplicationContext())
-                                .setTitle("지불 확인 요청")
-                                .setView(editText)
-                                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        Retrofit retrofit = new Retrofit.Builder()
-                                                .baseUrl(baseUrl)
-                                                .addConverterFactory(GsonConverterFactory.create())
-                                                .build();
+                                                    Pay pay = retrofit.create(Pay.class);
 
-                                        Pay pay = retrofit.create(Pay.class);
+                                                    Call<Common> call = pay.pay(mData.get_id(), data.get_id(), Integer.parseInt(editText.getText().toString()));
 
-                                        if(type == 1) {
-                                            id = data.getAdmin()[i].get_id();
-                                        } else {
-                                            id = data.getGroup()[i].get_id();
-                                        }
+                                                    call.enqueue(new Callback<Common>() {
+                                                        @Override
+                                                        public void onResponse(Call<Common> call, Response<Common> response) {
+                                                            Result res = response.body().getResult();
+                                                            if(res != null) {
+                                                                switch (res.getState()) {
+                                                                    case "200":
+                                                                        Snackbar.make(getWindow().getDecorView().getRootView(), "요청 완료", Snackbar.LENGTH_SHORT).show();
+                                                                        break;
+                                                                    case "201":
+                                                                        Snackbar.make(getWindow().getDecorView().getRootView(), "요청 실패", Snackbar.LENGTH_SHORT).show();
+                                                                        break;
+                                                                }
+                                                            }
+                                                        }
 
-                                        Call<Common> call = pay.pay(mData.get_id(), data.get_id(), Integer.parseInt(editText.getText().toString()));
-
-                                        call.enqueue(new Callback<Common>() {
-                                            @Override
-                                            public void onResponse(Call<Common> call, Response<Common> response) {
-                                                Result res = response.body().getResult();
-                                                if(res != null) {
-                                                    switch (res.getState()) {
-                                                        case "200":
-                                                            Snackbar.make(getWindow().getDecorView().getRootView(), "요청 완료", Snackbar.LENGTH_SHORT).show();
-                                                            break;
-                                                        case "201":
+                                                        @Override
+                                                        public void onFailure(Call<Common> call, Throwable t) {
                                                             Snackbar.make(getWindow().getDecorView().getRootView(), "요청 실패", Snackbar.LENGTH_SHORT).show();
-                                                            break;
-                                                    }
+                                                            t.printStackTrace();
+                                                        }
+                                                    });
                                                 }
-                                            }
-
-                                            @Override
-                                            public void onFailure(Call<Common> call, Throwable t) {
-                                                Snackbar.make(getWindow().getDecorView().getRootView(), "요청 실패", Snackbar.LENGTH_SHORT).show();
-                                                t.printStackTrace();
-                                            }
-                                        });
-                                    }
-                                })
-                                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        dialogInterface.dismiss();
-                                    }
-                                }).show();
+                                            })
+                                            .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialogInterface, int i) {
+                                                    dialogInterface.dismiss();
+                                                }
+                                            }).show();
+                                }
+                            }
+                        }
                     }
                 });
             }

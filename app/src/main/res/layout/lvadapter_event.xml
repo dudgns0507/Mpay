@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="80dp"
     android:descendantFocusability="blocksDescendants">
 
     <ImageView
@@ -11,17 +11,30 @@
         android:background="@color/palette1"
         android:src="@drawable/square" />
 
-    <io.github.dudgns0507.mpay.widget.NBTextView
-        android:id="@+id/title"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="25dp"
-        android:textColor="@color/textWhite"
-        android:textSize="@dimen/receiptInfo"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="25dp" />
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp">
+        <io.github.dudgns0507.mpay.widget.NBTextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:textColor="@color/textWhite"
+            android:textSize="@dimen/receiptInfo"/>
+        <io.github.dudgns0507.mpay.widget.NBTextView
+            android:id="@+id/pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textGreen"
+            android:textSize="14sp"/>
+    </LinearLayout>
 
     <Button
         android:id="@+id/state"

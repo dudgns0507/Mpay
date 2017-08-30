@@ -57,6 +57,13 @@ public class MainActivity extends AppCompatActivity {
 
     @BindString(R.string.baseurl) String baseUrl;
 
+    @OnClick(R.id.setting_btn) void onSettingClicked() {
+        Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+    }
+
     @OnClick(R.id.addgroup) void onAddClicked() {
         Intent intent = new Intent(MainActivity.this, MakeGroupActivity.class);
         startActivity(intent);
