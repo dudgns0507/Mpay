@@ -28,7 +28,8 @@
         <activity android:name=".Activity.MakeEventResultActivity" />
         <activity android:name=".Activity.AdminEventDetailActivity" />
         <activity android:name=".Activity.MakeEventActivity_2" />
-        <activity android:name=".Activity.MakeEventActivity_3"></activity>
+        <activity android:name=".Activity.MakeEventActivity_3" />
+        <activity android:name=".Activity.SettingActivity"></activity>
     </application>
 
 </manifest>

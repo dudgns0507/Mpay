@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="io.github.dudgns0507.mpay.Activity.SettingActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/uiGrey">
+            <ImageView
+                android:id="@+id/back_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_arrow_back_white_48dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"/>
+
+            <io.github.dudgns0507.mpay.widget.NBBTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="M PAY"
+                android:textAlignment="center"
+                android:layout_centerInParent="true"
+                android:textColor="@color/textWhite"
+                android:textSize="@dimen/uiTitle" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background"
+            android:gravity="center_horizontal">
+
+            <LinearLayout
+                android:layout_width="340dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="20dp">
+                <io.github.dudgns0507.mpay.widget.NBBTextView
+                    android:id="@+id/current_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="M PAY Application"
+                    android:textColor="@color/textWhite"
+                    android:textSize="@dimen/receiptInfo" />
+                <io.github.dudgns0507.mpay.widget.NBTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/receiptExplanation"
+                    android:layout_gravity="center"
+                    android:text="version 1.0.0"
+                    android:textColor="@color/textWhite"
+                    android:layout_marginTop="10dp"/>
+                <ImageView
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/mpay_logo"/>
+            </LinearLayout>
+            <io.github.dudgns0507.mpay.widget.NBTextView
+                android:id="@+id/written"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/receiptExplanation"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:text="Designed by herojeff02"
+                android:textColor="@color/textWhite"
+                android:layout_marginBottom="12dp"/>
+            <io.github.dudgns0507.mpay.widget.NBTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/receiptExplanation"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@id/written"
+                android:text="Written by dudgns0507"
+                android:textColor="@color/textWhite"
+                android:layout_marginBottom="6dp"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>
