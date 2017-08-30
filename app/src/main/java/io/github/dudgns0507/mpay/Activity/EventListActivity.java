@@ -2,10 +2,13 @@ package io.github.dudgns0507.mpay.Activity;
 
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,6 +39,7 @@ import io.github.dudgns0507.mpay.models.Result;
 import io.github.dudgns0507.mpay.models.User_info;
 import io.github.dudgns0507.mpay.util.FindEvents;
 import io.github.dudgns0507.mpay.util.FindGroup;
+import io.github.dudgns0507.mpay.util.Pay;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -113,59 +118,60 @@ public class EventListActivity extends AppCompatActivity {
     }
 
     void loadEvents() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(baseUrl)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
 
-        FindEvents findEvents = retrofit.create(FindEvents.class);
+            FindEvents findEvents = retrofit.create(FindEvents.class);
 
-        if(type == 1) {
-            id = data.getAdmin()[i].get_id();
-        } else {
-            id = data.getGroup()[i].get_id();
-        }
+            if(type == 1) {
+                id = data.getAdmin()[i].get_id();
+            } else {
+                id = data.getGroup()[i].get_id();
+            }
 
-        Call<Common> call = findEvents.findEvents(id);
+            Log.w(TAG, id + "");
+            Call<Common> call = findEvents.findEvents(id);
 
-        call.enqueue(new Callback<Common>() {
-            @Override
-            public void onResponse(Call<Common> call, Response<Common> response) {
-                Result res = response.body().getResult();
-                if(res != null) {
-                    switch (res.getState()) {
-                        case "200":
-                            Events[] events = new Events[res.getEvents().length];
-                            if(type == 2) {
-                                int cnt = 0;
-                                for(int i = 0; i < res.getEvents().length; i++) {
-                                    if(res.getEvents()[i].getStatus().equals("진행"))
-                                        events[cnt++] = res.getEvents()[i];
+            call.enqueue(new Callback<Common>() {
+                @Override
+                public void onResponse(Call<Common> call, Response<Common> response) {
+                    Result res = response.body().getResult();
+                    if(res != null) {
+                        switch (res.getState()) {
+                            case "200":
+                                Events[] events = new Events[res.getEvents().length];
+                                if(type == 2) {
+                                    int cnt = 0;
+                                    for(int i = 0; i < res.getEvents().length; i++) {
+                                        if(res.getEvents()[i].getStatus().equals("진행"))
+                                            events[cnt++] = res.getEvents()[i];
+                                    }
+                                    data.setEvents(events);
+                                } else {
+                                    data.setEvents(res.getEvents());
                                 }
-                                data.setEvents(events);
-                            } else {
-                                data.setEvents(res.getEvents());
-                            }
 
-                            mAdapter.clear();
-                            for (int i = 0; i < data.getEvents().length; i++) {
-                                mAdapter.addItem(data.getEvents()[i]);
-                            }
-                            mAdapter.dataChange();
-                            break;
-                        case "201":
-                            Snackbar.make(getWindow().getDecorView().getRootView(), "로딩 실패", Snackbar.LENGTH_SHORT).show();
-                            break;
+                                mAdapter.clear();
+                                for (int i = 0; i < data.getEvents().length; i++) {
+                                    mAdapter.addItem(data.getEvents()[i]);
+                                }
+                                mAdapter.dataChange();
+                                break;
+                            case "201":
+                                Snackbar.make(getWindow().getDecorView().getRootView(), "로딩 실패", Snackbar.LENGTH_SHORT).show();
+                                break;
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<Common> call, Throwable t) {
-                Snackbar.make(getWindow().getDecorView().getRootView(), "로딩 실패", Snackbar.LENGTH_SHORT).show();
-                t.printStackTrace();
-            }
-        });
+                @Override
+                public void onFailure(Call<Common> call, Throwable t) {
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "로딩 실패", Snackbar.LENGTH_SHORT).show();
+                    t.printStackTrace();
+                }
+            });
     }
 
     @Override
@@ -250,6 +256,65 @@ public class EventListActivity extends AppCompatActivity {
                             holder.state.setBackgroundResource(R.color.tagGreen);
                     }
                 }
+                holder.state.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        final EditText editText = new EditText(getApplicationContext());
+                        editText.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+
+                        final AlertDialog alertDialog = new AlertDialog.Builder(getApplicationContext())
+                                .setTitle("지불 확인 요청")
+                                .setView(editText)
+                                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Retrofit retrofit = new Retrofit.Builder()
+                                                .baseUrl(baseUrl)
+                                                .addConverterFactory(GsonConverterFactory.create())
+                                                .build();
+
+                                        Pay pay = retrofit.create(Pay.class);
+
+                                        if(type == 1) {
+                                            id = data.getAdmin()[i].get_id();
+                                        } else {
+                                            id = data.getGroup()[i].get_id();
+                                        }
+
+                                        Call<Common> call = pay.pay(mData.get_id(), data.get_id(), Integer.parseInt(editText.getText().toString()));
+
+                                        call.enqueue(new Callback<Common>() {
+                                            @Override
+                                            public void onResponse(Call<Common> call, Response<Common> response) {
+                                                Result res = response.body().getResult();
+                                                if(res != null) {
+                                                    switch (res.getState()) {
+                                                        case "200":
+                                                            Snackbar.make(getWindow().getDecorView().getRootView(), "요청 완료", Snackbar.LENGTH_SHORT).show();
+                                                            break;
+                                                        case "201":
+                                                            Snackbar.make(getWindow().getDecorView().getRootView(), "요청 실패", Snackbar.LENGTH_SHORT).show();
+                                                            break;
+                                                    }
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<Common> call, Throwable t) {
+                                                Snackbar.make(getWindow().getDecorView().getRootView(), "요청 실패", Snackbar.LENGTH_SHORT).show();
+                                                t.printStackTrace();
+                                            }
+                                        });
+                                    }
+                                })
+                                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
+                                    }
+                                }).show();
+                    }
+                });
             }
 
             String id_str = "palette" + mData.getTag_color();
