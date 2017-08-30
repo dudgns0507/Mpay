@@ -52,7 +52,6 @@
                     android:text="M PAY Application"
                     android:textColor="@color/textWhite"
                     android:textSize="@dimen/receiptInfo" />
-                <!--(현재 모인 돈)원 / (총액)원-->
                 <io.github.dudgns0507.mpay.widget.NBTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -61,7 +60,6 @@
                     android:text="version 1.0.0"
                     android:textColor="@color/textWhite"
                     android:layout_marginTop="10dp"/>
-                <!--*월 *일 마감-->
                 <ImageView
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
@@ -77,16 +75,16 @@
                 android:textSize="@dimen/receiptExplanation"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
-                android:text="Written by dudgns0507"
+                android:text="Designed by herojeff02"
                 android:textColor="@color/textWhite"
-                android:layout_marginBottom="6dp"/>
+                android:layout_marginBottom="12dp"/>
             <io.github.dudgns0507.mpay.widget.NBTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/receiptExplanation"
                 android:layout_centerHorizontal="true"
                 android:layout_above="@id/written"
-                android:text="Designed by herojeff02"
+                android:text="Written by dudgns0507"
                 android:textColor="@color/textWhite"
                 android:layout_marginBottom="6dp"/>
         </RelativeLayout>
