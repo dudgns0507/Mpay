@@ -6,8 +6,8 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
-public interface FindEvents {
+public interface Hurry {
     @FormUrlEncoded
-    @POST("/find_event")
-    Call<Common> findEvents(@Field("group_id") int group_id);
+    @POST("/hurry")
+    Call<Common> hurry(@Field("event_id") int event_id);
 }

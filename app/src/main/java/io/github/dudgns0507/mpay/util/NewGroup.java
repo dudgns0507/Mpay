@@ -9,10 +9,6 @@ import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
-/**
- * Created by pyh42 on 2017-08-28.
- */
-
 public interface NewGroup {
     @Headers("Content-type: application/json")
     @POST("/new_group")

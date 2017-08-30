@@ -30,6 +30,18 @@
         <activity android:name=".Activity.MakeEventActivity_2" />
         <activity android:name=".Activity.MakeEventActivity_3" />
         <activity android:name=".Activity.SettingActivity"></activity>
+        <service
+            android:name=".util.FirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name=".util.FirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

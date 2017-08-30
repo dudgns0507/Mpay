@@ -33,6 +33,7 @@ import io.github.dudgns0507.mpay.models.Group;
 import io.github.dudgns0507.mpay.models.Result;
 import io.github.dudgns0507.mpay.models.User_info;
 import io.github.dudgns0507.mpay.util.Conclude;
+import io.github.dudgns0507.mpay.util.Hurry;
 import io.github.dudgns0507.mpay.util.MyGroup;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,6 +62,56 @@ public class AdminEventDetailActivity extends AppCompatActivity {
 
     @OnClick(R.id.back_btn) void onBackClicked() {
         onBackPressed();
+    }
+
+    @OnClick(R.id.hurry_btn) void onHurryClicked() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("독촉 메세지를 전송 하시겠습니까?")
+                .setCancelable(false)
+                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl(baseUrl)
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build();
+
+                        Hurry hurry = retrofit.create(Hurry.class);
+
+                        Call<Common> call = hurry.hurry(data.getEvents()[j].get_id());
+                        call.enqueue(new Callback<Common>() {
+                            @Override
+                            public void onResponse(Call<Common> call, Response<Common> response) {
+                                Result res = response.body().getResult();
+
+                                switch (res.getState()) {
+                                    case "200":
+                                        Snackbar.make(getWindow().getDecorView().getRootView(), "독촉 메세지를 전송하였습니다.", Snackbar.LENGTH_SHORT).show();
+                                        break;
+                                    case "201":
+                                        Snackbar.make(getWindow().getDecorView().getRootView(), "요청 실패", Snackbar.LENGTH_SHORT).show();
+                                        break;
+
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Common> call, Throwable t) {
+                                Snackbar.make(getWindow().getDecorView().getRootView(), "요청 실패", Snackbar.LENGTH_SHORT).show();
+                                t.printStackTrace();
+                            }
+                        });
+                    }
+                })
+                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     @OnClick(R.id.conclude_btn) void onConcludeClicked() {

@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
@@ -94,6 +96,9 @@ public class LoginActivity extends AppCompatActivity {
                 .setDeniedMessage("권한 허가하시지 않을 경우, 앱의 일부 서비스를 사용 못할 수 있습니다. \n\n[설정] -> [권한]에서 권한을 설정해 주세요.")
                 .setPermissions(Manifest.permission.INTERNET)
                 .check();
+
+        FirebaseMessaging.getInstance().subscribeToTopic("news");
+        FirebaseInstanceId.getInstance().getToken();
     }
 
     void login(final String id, final String pw) {
@@ -110,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Login login = retrofit.create(Login.class);
 
-        Call<Common> call = login.login(id, pw);
+        Call<Common> call = login.login(id, pw, FirebaseInstanceId.getInstance().getToken());
         call.enqueue(new Callback<Common>() {
             @Override
             public void onResponse(Call<Common> call, Response<Common> response) {

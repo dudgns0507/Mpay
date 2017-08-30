@@ -1,9 +1,5 @@
 package io.github.dudgns0507.mpay.models;
 
-/**
- * Created by pyh42 on 2017-08-28.
- */
-
 public class Data {
     private static Data data = new Data();
 

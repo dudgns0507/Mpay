@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "389532734180",
+    "firebase_url": "https://mpay-2d99f.firebaseio.com",
+    "project_id": "mpay-2d99f",
+    "storage_bucket": "mpay-2d99f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389532734180:android:baa94e7bd5d55cc6",
+        "android_client_info": {
+          "package_name": "io.github.dudgns0507.mpay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "389532734180-o4htf6hikq710qfvooilogj96efg3kd8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAA85FoewYtwnsWWCTLl22b50d6KaMgVPM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
