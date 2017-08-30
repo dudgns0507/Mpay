@@ -52,8 +52,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:background="@color/background"
-                android:padding="16dp"
-                >
+                android:padding="16dp" >
                 <io.github.dudgns0507.mpay.widget.NBLEditTextView
                     android:id="@+id/group_name"
                     android:layout_width="match_parent"
@@ -172,12 +171,14 @@
                 </ListView>
             </LinearLayout>
             <android.support.design.widget.FloatingActionButton
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/go_btn_frame"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|bottom"
                 android:layout_margin="20dp"
-                android:backgroundTint="@color/uiBlue"
+                app:backgroundTint="@color/uiBlue"
+                android:background="@color/uiBlue"
                 android:src="@drawable/ic_arrow_back_white_48dp"
                 android:rotation="180"/>
         </FrameLayout>
